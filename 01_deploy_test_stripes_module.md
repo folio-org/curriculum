@@ -11,7 +11,15 @@ success Set "@folio:registry" to "https://repository.folio.org/repository/npm-fo
 
 ## Set up a Stripes platform
 
-Create an empty directory to hold the stripes configuration.  In that directory, put two files: `package.json` and `stripes.config.js`.
+Create an empty directory to hold the stripes configuration (called `stripes-tutorial-platform`).  
+
+```bash
+$ export FOLIO_ROOT=`pwd`    # Store the current directory we are in for later use
+$ mkdir $FOLIO_ROOT/stripes-tutorial-platform
+$ cd $FOLIO_ROOT/stripes-tutorial-platform
+```
+
+In that directory, put two files: `package.json` and `stripes.config.js`.
 
 ### Contents of `package.json`
 
@@ -34,9 +42,9 @@ At this stage of the Curriculum we are setting up a stand-alone stripes instance
 ```
 
 ### Contents of `stripes.config.js`
-`stripes.config.js` contains the configuration details for the Stripes platform.  It is referenced in _scripts_ dictionary of `package.json`.  It is a JSON file with two required dictionaries: _config_ and _modules_.  The _config_ dictionary contains one key-value pair setting `disableAuth` to `true`.  Authentication and authorization are covered later in this tutorial.  The _modules_ dictionary contains another dictionary of Stripes modules and their configuration (XXX TRUE? -- WHAT IS THE VALUE OF THE DICTIONARY ENTRY USED FOR?)
+`stripes.config.js` contains the configuration details for the Stripes platform.  It is referenced in _scripts_ dictionary of `package.json`.  It is a JSON file with two required dictionaries: _config_ and _modules_.  The _config_ dictionary contains one key-value pair setting `disableAuth` to `true`.  (Authentication and authorization are covered later in this tutorial.)  The _modules_ dictionary contains another dictionary of Stripes modules and their configuration (XXX TRUE? -- WHAT IS THE VALUE OF THE DICTIONARY ENTRY USED FOR?)
 
-```json
+```javascript
 module.exports = {
   config: { disableAuth: true },
   modules: {
