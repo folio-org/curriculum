@@ -30,7 +30,7 @@ Before attending the workshop, participants must meet these requirements.  When 
 
 ## Lessons/Steps
 1. [Deploy test Stripes module](01_deploy_test_stripes_module.md)
-1. Clone and build Okapi
+1. [Clone and build Okapi](02_clone_build_and_explore_okapi.md)
 1. Test three example modules (okapi-test-module, okapi-test-header-module and okapi-test-auth-module)
 1. Deploy test module and create sample tenant
 1. Putting it all together: deploy ui-okapi-console
