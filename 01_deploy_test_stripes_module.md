@@ -11,7 +11,7 @@ success Set "@folio:registry" to "https://repository.folio.org/repository/npm-fo
 
 ## Set up a Stripes platform
 
-Create an empty directory to hold the stripes configuration (called `stripes-tutorial-platform`).  
+Create an empty directory to hold the stripes configuration (called `stripes-tutorial-platform`).
 
 ```bash
 $ export FOLIO_ROOT=`pwd`    # Store the current directory we are in for later use
@@ -94,7 +94,7 @@ Type in a greeting and name of your choice and submit the form to see the reply.
 
 ![Trivial reply](pics/01_Trivial_reply.png)
 
-This is an example of the Stripes server component communicating with a Stripes browser component.  We have not set up the OKAPI part of the FOLIO system, so this interaction is strictly within Stripes itself.  
+This is an example of the Stripes server component communicating with a Stripes browser component.  We have not set up the OKAPI part of the FOLIO system, so this interaction is strictly within Stripes itself.
 
 The source for the Trivial module is in stripes-core (https://github.com/folio-org/stripes-core/tree/master/examples/trivial), with the bulk of the work in the [About.js](https://github.com/folio-org/stripes-core/blob/master/examples/trivial/About.js) file.  More details about the state of the object within the module can be seen by viewing the debugging output in the browser's JavaScript console.
 
