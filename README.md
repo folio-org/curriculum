@@ -18,7 +18,7 @@ There are two choices: either running Stripes and Okapi directly on a developerâ
 Before attending the workshop, participants must meet these requirements.  When in doubt, using the VirtualBox guest machine is recommended.
 
 ### On-Machine
-* Java 8
+* Java 8 1.8.0-101 or higher
 * Maven 3.3.9 or higher
 * Node.js 6.x or higher
 * [Yarn](https://yarnpkg.com/en/) package manager v0.20.3 or higher
