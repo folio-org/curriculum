@@ -22,7 +22,7 @@ Before attending the workshop, participants must meet these requirements.  When 
 * Maven 3.3.9 or higher
 * Node.js 6.x or higher
 * [Yarn](https://yarnpkg.com/en/) package manager v0.20.3 or higher
-* Stage artifacts in the on-machine Maven and Node repositories (to avoid having to download these prerequisites over the conference facility’s wifi network)
+* Stage artifacts in the on-machine Maven and Node repositories (to avoid having to download these prerequisites over the conference facility’s Wi-Fi network)
 
 ## VirtualBox guest
 * VirtualBox 5.1 or higher
