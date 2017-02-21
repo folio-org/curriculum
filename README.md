@@ -36,3 +36,8 @@ Before attending the workshop, participants must meet these requirements.  When 
 1. Putting it all together: deploy ui-okapi-console
 1. Real-world application: deploy ui-users (Stripes) and mod-users (Okapi)
 1. Build a skeletal RAML-module-builder module
+
+## Run Jekyll Locally
+* (once) `git clone git@github.com/folio-org/curriculum.git folio-curriculum && cd folio-curriculum && bundle install`
+* `bundle exec jekyll serve`
+* View the site locally at http://localhost:4000
