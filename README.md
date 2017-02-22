@@ -31,7 +31,7 @@ Before attending the workshop, participants must meet these requirements.  When 
 ## Lessons/Steps
 1. [Deploy test Stripes module](01_deploy_test_stripes_module.md)
 1. [Clone, build and explore Okapi](02_clone_build_and_explore_okapi.md)
-1. Deploy test module and create sample tenant
+1. [Initialize Okapi from the command line](03_initialize_okapi_from_the_command_line)
 1. Putting it all together: deploy ui-okapi-console
 1. Real-world application: deploy ui-users (Stripes) and mod-users (Okapi)
 1. Build a skeletal RAML-module-builder module
