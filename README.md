@@ -39,4 +39,4 @@ Before attending the workshop, participants must meet these requirements.  When 
 ## Run Jekyll Locally
 * (once) `git clone git@github.com/folio-org/curriculum.git folio-curriculum && cd folio-curriculum && bundle install`
 * `bundle exec jekyll serve`
-* View the site locally at http://localhost:4000
+* View the site locally at http://localhost:4000/curriculum/

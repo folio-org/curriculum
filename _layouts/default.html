@@ -30,10 +30,11 @@
 
         <p class="view">
           {% assign nav_label = '00: Introduction' %}
+          {% assign nav_url = '/' | prepend: site.baseurl %}
           {% if page.url == '/' %}
-            <a href="{{ site.url }}"><b>{{ nav_label }}</b></a><br/>
+            <a href="{{ nav_url }}"><b>{{ nav_label }}</b></a><br/>
           {% else %}
-            <a href="{{ site.url }}">{{ nav_label }}</a><br/>
+            <a href="{{ nav_url }}">{{ nav_label }}</a><br/>
           {% endif %}
           {% assign nodes = site.pages | sort: 'url' %}
           {% for node in nodes %}
@@ -42,7 +43,7 @@
               {% assign filename = node_url_segments | last %}
               {% assign filename_segments = filename | split: '_' %}
               {% assign sequence = filename_segments | first %}
-              {% assign nav_url = node.url | replace: '.html' %}
+              {% assign nav_url = node.url | replace: '.html' | prepend: site.baseurl %}
               {% capture nav_label %}{{ sequence }}: {{ node.title }}{% endcapture %}
               {% if page.url == node.url %}
                 <a href="{{ nav_url }}"><b>{{ nav_label }}</b></a><br/>
