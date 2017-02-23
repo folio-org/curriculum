@@ -1,2 +1,8 @@
 title: FOLIO Developer Curriculum
 theme: jekyll-theme-minimal
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
