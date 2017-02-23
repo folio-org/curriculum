@@ -25,6 +25,7 @@ Content-Type: application/json
 Content-Length: 3
 
 [ ]
+
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/tenants
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -33,7 +34,8 @@ Content-Length: 3
 [ ]
 ```
 
-Note that in both cases what was returned from the gateway are empty JSON lists, meaning that the newly initialized Okapi Gateway has no configured modules or gateways.
+Note that in both cases what was returned from the gateway are empty JSON lists, meaning that the newly initialized Okapi Gateway has no configured modules or tenants.
+
 Paths starting with `/_/` are core Okapi Gateway services.
 `/_/proxy` is one core service; it is used to XXXXX
 Another core service is `/_/discovery`; it is used to interact with nodes in the Okapi cluster.
