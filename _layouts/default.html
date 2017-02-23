@@ -35,6 +35,31 @@
             <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
           </ul>
         {% endif %}
+
+        <p class="view">
+          {% assign nav_label = '00: Introduction' %}
+          {% if page.url == '/' %}
+            <a href="{{ site.url }}"><b>{{ nav_label }}</b></a><br/>
+          {% else %}
+            <a href="{{ site.url }}">{{ nav_label }}</a><br/>
+          {% endif %}
+          {% assign nodes = site.pages | sort: 'url' %}
+          {% for node in nodes %}
+            {% if node.title != nil %}
+              {% assign node_url_segments = node.url | split: '/' %}
+              {% assign filename = node_url_segments | last %}
+              {% assign filename_segments = filename | split: '_' %}
+              {% assign sequence = filename_segments | first %}
+              {% assign nav_url = node.url | replace: '.html' %}
+              {% capture nav_label %}{{ sequence }}: {{ node.title }}{% endcapture %}
+              {% if page.url == node.url %}
+                <a href="{{ nav_url }}"><b>{{ nav_label }}</b></a><br/>
+              {% else %}
+                <a href="{{ nav_url }}">{{ nav_label }}</a><br/>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </p>
       </header>
       <section>
 
