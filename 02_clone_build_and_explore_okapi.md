@@ -95,7 +95,7 @@ It worksblah
 
 (Note that there is not an `X-stop-here` request header defined in Okapi.  This is a header specific to the _Okapi-test-module_ that forces the return of the Okapi-defined `X-Okapi-Stop` response header.)
 
-The corresponding Okapi module code that is handling this interaction can be found in the [okapi-test-module/.../MainVerticle.java]( https://github.com/folio-org/okapi/blob/master/okapi-test-module/src/main/java/org/folio/okapi/sample/MainVerticle.java#L18) file.
+The corresponding Okapi module code that is handling this interaction can be found in the [okapi-test-module/.../MainVerticle.java]( https://github.com/folio-org/okapi/blob/master/okapi-test-module/src/main/java/org/folio/okapi/sample/MainVerticle.java) file.
 
 Return to the terminal window with _Okapi-test-module_ running and press Control-C to exit it.
 
