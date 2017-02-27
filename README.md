@@ -2,13 +2,13 @@
 This is an outline of a tutorial that can be given to a group in a workshop or followed by an individual developer in a self-paced fashion.
 
 ## Goals
-* Set up a running instance of Stripes
-* Set up a running instance of Okapi gateway
-* Demonstrate how to deploy a module to a tenant in Okapi and UI (thing) in Stripes
-* Understand how Okapi routes requests to modules
+* Set up a running instance of the Stripes Development UI Server
+* Set up a running instance of Okapi Gateway
+* Demonstrate how to deploy an Okapi Module to a tenant in Okapi Gateway and the Stripes UI Server
+* Understand how Okapi Gateway routes requests to modules
 
 ## System Requirements
-There are two choices: either running Stripes and Okapi directly on a developer’s machine (“on-machine”) or running Stripes and Okapi in a VirtualBox guest.
+There are two choices: either running the Stripes Development UI Server and the Okapi Gateway directly on a developer’s machine (“on-machine”) or running Stripes and Okapi in a VirtualBox guest.
 An Ansible playbook with appropriate roles is used to create the VirtualBox guest, and can also be used to automatically build a developer’s environment (making the playbook target localhost).
 
 * MacOS 10.? or higher (On-machine or VirtualBox)
@@ -35,9 +35,9 @@ To download the VirtualBox guest:
 1. Launch the VirtualBox guest: `vagrant up`
 
 ## Lessons/Steps
-1. [Deploy test Stripes module](01_deploy_test_stripes_module)
+1. [Deploy test Stripes package](01_deploy_test_stripes_module)
 1. [Clone, build and explore Okapi](02_clone_build_and_explore_okapi)
-1. [Initialize Okapi from the command line](03_initialize_okapi_from_the_command_line)
+1. [Initialize Okapi Gateway from the command line](03_initialize_okapi_from_the_command_line)
 1. Real-world application: [set up the FOLIO Users app](04_set_up_the_folio_users_app)
 1. Build a skeletal RAML-module-builder module
 
