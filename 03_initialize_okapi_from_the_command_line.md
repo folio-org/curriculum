@@ -12,7 +12,7 @@ $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
 12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
 ```
 
-The `dev` parameter starts Okapi in 'development mode' (a known, clean state without any modules or tenants defined).
+The `dev` parameter starts the Okapi Gateway in 'development mode' (a known, clean state without any modules or tenants defined).
 The Okapi Gateway is using an in-memory database (a built-in PostgreSQL database can be specified by adding `-Dstorage=postgres` before the `-jar` parameter).
 We are going to run the Okapi Gateway with debugging turned on so you can see the effect of the requests passing through the gateway.
 The last line of output tells us that the Okapi Gateway is running on port 9130.
@@ -37,13 +37,13 @@ Content-Length: 3
 Note that in both cases what was returned from the gateway are empty JSON lists, meaning that the newly initialized Okapi Gateway has no configured modules or tenants.
 
 Paths starting with `/_/` are core Okapi Gateway services.
-`/_/proxy` is one core service; it is used to XXXXX
+`/_/proxy` is one core service; it is used to //TODO define
 Another core service is `/_/discovery`; it is used to interact with nodes in the Okapi cluster.
 More details about these core services can be found in the [Okapi Guide and Reference](https://github.com/folio-org/okapi/blob/master/doc/guide.md#deployment-and-discovery).
 In the next section we will use these two core services to register a module and a tenant.
 
 ## Defining the _okapi-test-module_ within the Okapi Gateway
-Defining a module with the Okapi Gateway occurs in three steps: registering, deploying, and configuring the proxy.
+Defining a module with the Okapi Gateway occurs in three steps: Registering, Deploying, and Configuring the proxy.
 
 ### Registering _okapi-test-module_
 To tell Okapi that we want to use the okapi-test-module, we create a JSON structure of a "Module Descriptor" and POST it to Okapi.
@@ -84,7 +84,7 @@ It `provides` two interfaces: `test-basic` and `_tenant`.
 The `test-basic` interface is how clients will communicate with the Okapi Module (as we did directly in the previous lesson).
 Interfaces beginning with an underscore (such as `_tenant`) are reserved system interfaces; in this case, an interface that is called when a module is enabled or disabled for a tenant.
 The `routingEntries` dictionary tells the gateway:
-* what HTTP methods are expected
+* which HTTP methods are expected
 * the path registered in the gateway for which this interface will receive requests
 * the priority of this module relative to other modules registered on the same path as the chain of modules is constructed by the gateway
 * the type of response provided by this module interface
