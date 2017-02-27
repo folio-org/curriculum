@@ -8,14 +8,16 @@ This is an outline of a tutorial that can be given to a group in a workshop or f
 * Understand how Okapi routes requests to modules
 
 ## System Requirements
-There are two choices: either running Stripes and Okapi directly on a developer’s machine (“on-machine”) or running Stripes and Okapi in a VirtualBox guest.  An Ansible playbook with appropriate roles is used to create the VirtualBox guest, and can also be used to automatically build a developer’s environment (making the playbook target localhost).
+There are two choices: either running Stripes and Okapi directly on a developer’s machine (“on-machine”) or running Stripes and Okapi in a VirtualBox guest.
+An Ansible playbook with appropriate roles is used to create the VirtualBox guest, and can also be used to automatically build a developer’s environment (making the playbook target localhost).
 
 * MacOS 10.? or higher (On-machine or VirtualBox)
 * Windows 10 or higher (VirtualBox required)
 * Linux (On-machine or VirtualBox)
 
 ## Prerequisites
-Before attending the workshop, participants must meet these requirements.  When in doubt, using the VirtualBox guest machine is recommended.
+Before attending the workshop, participants must meet these requirements.
+When in doubt, using the VirtualBox guest machine is recommended.
 
 ### On-Machine
 * [Java 8 JDK 1.8.0-101](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or higher

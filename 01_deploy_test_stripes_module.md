@@ -24,9 +24,13 @@ In that directory, put two files: `package.json` and `stripes.config.js`.
 
 ### Contents of `package.json`
 
-`package.json` is a [Node Package Manager (NPM) configuration file](https://docs.npmjs.com/files/package.json). It is a JSON file that contains two dictionaries: _scripts_ and _dependencies_.  The _scripts_ dictionary specifies name-value pairs of commands that are used by Yarn to build and run the platform.  The _dependencies_ dictionary lists packages (and specific versions) that make up the Stripes client bundles.
+`package.json` is a [Node Package Manager (NPM) configuration file](https://docs.npmjs.com/files/package.json).
+It is a JSON file that contains two dictionaries: _scripts_ and _dependencies_.
+The _scripts_ dictionary specifies name-value pairs of commands that are used by Yarn to build and run the platform.
+The _dependencies_ dictionary lists packages (and specific versions) that make up the Stripes client bundles.
 
-At this stage of the Curriculum we are setting up a stand-alone Stripes UI Server instance that does not communicate with an Okapi back-end.  The `package.json` below builds Stripes with a 'trivial' client bundle.
+At this stage of the Curriculum we are setting up a stand-alone Stripes UI Server instance that does not communicate with an Okapi back-end.
+The `package.json` below builds Stripes with a 'trivial' client bundle.
 
 ```json
 {
@@ -43,7 +47,12 @@ At this stage of the Curriculum we are setting up a stand-alone Stripes UI Serve
 ```
 
 ### Contents of `stripes.config.js`
-`stripes.config.js` contains the configuration details for the Stripes UI Server.  It is referenced in _scripts_ dictionary of `package.json`.  It is a JSON file with two required dictionaries: _config_ and _modules_.  The _config_ dictionary contains one key-value pair setting `disableAuth` to `true`.  (Authentication and authorization are covered later in this tutorial.)  The _modules_ dictionary contains another dictionary of Stripes package and their configuration.
+`stripes.config.js` contains the configuration details for the Stripes UI Server.
+It is referenced in _scripts_ dictionary of `package.json`.
+It is a JSON file with two required dictionaries: _config_ and _modules_.
+The _config_ dictionary contains one key-value pair setting `disableAuth` to `true`.
+(Authentication and authorization are covered later in this tutorial.)
+The _modules_ dictionary contains another dictionary of Stripes package and their configuration.
 The key in this dictionary is the name of the package to load from the FOLIO UI registry.
 The value in this dictionary are parameters that can override the default settings of the Stripes package.
 
@@ -82,7 +91,8 @@ $ yarn start
   webpack built 554cedd72fbedc2f7499 in 7890ms
 ```
 
-The Stripes UI Server is now running at http://localhost:3000. The server will respond after the `webpack built...` message is displayed.
+The Stripes UI Server is now running at http://localhost:3000.
+The server will respond after the `webpack built...` message is displayed.
 
 ## Interacting with the Stripes UI Server
 
@@ -97,8 +107,10 @@ Type in a greeting and name of your choice and submit the form to see the reply.
 
 ![Trivial reply](pics/01_Trivial_reply.png)
 
-This is an example of the Stripes server component communicating with a Stripes browser component.  We have not set up the Okapi part of the FOLIO system, so this interaction is strictly within the Stripes UI Server itself.
+This is an example of the Stripes server component communicating with a Stripes browser component.
+We have not set up the Okapi part of the FOLIO system, so this interaction is strictly within the Stripes UI Server itself.
 
-The source for the Trivial module is in the stripes-core git repository (https://github.com/folio-org/stripes-core/tree/master/examples/trivial), with the bulk of the work in the [About.js](https://github.com/folio-org/stripes-core/blob/master/examples/trivial/About.js) file.  More details about the state of the object within the module can be seen by viewing the debugging output in the browser's JavaScript console.
+The source for the Trivial module is in the stripes-core git repository (https://github.com/folio-org/stripes-core/tree/master/examples/trivial), with the bulk of the work in the [About.js](https://github.com/folio-org/stripes-core/blob/master/examples/trivial/About.js) file.
+More details about the state of the object within the module can be seen by viewing the debugging output in the browser's JavaScript console.
 
 ![Trivial reply with browser JavaScript console](pics/01_Trivial_reply_with_js_console.png)
