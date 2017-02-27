@@ -13,6 +13,7 @@ $ yarn config set @folio:registry https://repository.folio.org/repository/npm-fo
 
 Create an empty directory to hold the Stripes UI Server configuration (called `stripes-tutorial-platform`).
 (Note: the first line of this block of shell commands saves the 'root' directory from which subsequent directories and files in this tutorial will be created.)
+(Note: if using the VirtualBox guest setup, it is recommended to first `cd /vagrant` before creating the empty directory. Doing so makes the Okapi and Stripes files available from the host operating system in the same directory the Vagrantfile file is located.)
 
 ```shell
 $ export FOLIO_ROOT=`pwd`    # Store the current directory we are in for later use

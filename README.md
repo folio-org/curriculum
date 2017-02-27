@@ -24,11 +24,15 @@ When in doubt, using the VirtualBox guest machine is recommended.
 * Maven 3.3.9 or higher
 * Node.js 6.x or higher
 * [Yarn](https://yarnpkg.com/en/) package manager v0.20.3 or higher
-* Stage artifacts in the on-machine Maven and Node repositories (to avoid having to download these prerequisites over the conference facility’s Wi-Fi network)
 
-## VirtualBox guest
-* VirtualBox 5.1 or higher
-* Download the tutorial guest VM
+### VirtualBox guest
+* [VirtualBox 5.1 or higher](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant 1.9.1 or higher](https://www.vagrantup.com/downloads.html)
+
+To download the VirtualBox guest:
+1. Make a clean directory and change into it: `mkdir folio-curriculum && cd folio-curriculum`
+1. Set up the Vagrantfile: `vagrant init --minimal folio/curriculum`
+1. Launch the VirtualBox guest: `vagrant up`
 
 ## Lessons/Steps
 1. [Deploy test Stripes module](01_deploy_test_stripes_module)
