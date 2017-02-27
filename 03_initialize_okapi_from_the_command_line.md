@@ -4,12 +4,12 @@
 ```shell
 $ cd $FOLIO_ROOT/okapi   # Set in lesson one of the tutorial
 $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
-12:08:11 INFO  MainVerticle         git: git@github.com:folio-org/okapi 225c9c1e03c29459da430f93110abb30378e1394
-12:08:11 INFO  MainVerticle         clusterManager not in use
-12:08:11 INFO  MainVerticle         Proxy using inmemory storage
-12:08:12 WARN  Storage              Storage.resetDatabases: NORMAL
-12:08:12 INFO  TenantWebService     All tenants deployed
-12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
+  12:08:11 INFO  MainVerticle         git: git@github.com:folio-org/okapi 225c9c1e03c29459da430f93110abb30378e1394
+  12:08:11 INFO  MainVerticle         clusterManager not in use
+  12:08:11 INFO  MainVerticle         Proxy using inmemory storage
+  12:08:12 WARN  Storage              Storage.resetDatabases: NORMAL
+  12:08:12 INFO  TenantWebService     All tenants deployed
+  12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
 ```
 
 The `dev` parameter starts the Okapi Gateway in 'development mode' (a known, clean state without any modules or tenants defined).
@@ -20,18 +20,18 @@ We can use two curl commands to list the Okapi Modules and tenants known to the 
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
-HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 3
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Content-Length: 3
 
-[ ]
+  [ ]
 
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/tenants
-HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 3
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Content-Length: 3
 
-[ ]
+  [ ]
 ```
 
 Note that in both cases what was returned from the gateway are empty JSON lists, meaning that the newly initialized Okapi Gateway has no configured modules or tenants.
@@ -97,16 +97,16 @@ To deploy the module, this JSON is POSTed to the `/_/proxy/modules` core service
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-proxy-test-basic.json http://localhost:9130/_/proxy/modules
-HTTP/1.1 201 Created
-Content-Type: application/json
-Location: /_/proxy/modules/test-module
-Content-Length: 548
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Location: /_/proxy/modules/test-module
+  Content-Length: 548
 
-{
- "id" : "test-module",
- "name" : "Okapi test module",
-...
-}
+  {
+   "id" : "test-module",
+   "name" : "Okapi test module",
+  ...
+  }
 ```
 
 The Okapi Gateway responds with an [HTTP 201 ("Created")](https://httpstatusdogs.com/201-created) status code and returns the request body as the response body.
@@ -134,14 +134,14 @@ First, let's query the discovery service for a list of nodes it knows about in t
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/discovery/nodes
-HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 67
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Content-Length: 67
 
-[ {
-  "nodeId" : "localhost",
-  "url" : "http://localhost:9130"
-} ]
+  [ {
+    "nodeId" : "localhost",
+    "url" : "http://localhost:9130"
+  } ]
 ```
 
 The response body is a JSON document that, for our Okapi Gateway instance running with the 'dev' option, show just one node (`nodeId` of `localhost`).
@@ -162,20 +162,20 @@ Then post this document to the `/_/discovery` core service:
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-deploy-test-basic.json http://localhost:9130/_/discovery/modules
-HTTP/1.1 201 Created
-Content-Type: application/json
-Location: /_/discovery/modules/test-module/localhost-9131
-Content-Length: 232
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Location: /_/discovery/modules/test-module/localhost-9131
+  Content-Length: 232
 
-{
- "instId" : "localhost-9131",
- "srvcId" : "test-module",
- "nodeId" : "localhost",
- "url" : "http://localhost:9131",
- "descriptor" : {
-   "exec" : "java -Dport=%p -jar okapi-test-module/target/okapi-test-module-fat.jar"
- }
-}
+  {
+   "instId" : "localhost-9131",
+   "srvcId" : "test-module",
+   "nodeId" : "localhost",
+   "url" : "http://localhost:9131",
+   "descriptor" : {
+     "exec" : "java -Dport=%p -jar okapi-test-module/target/okapi-test-module-fat.jar"
+   }
+  }
 ```
 
 The Okapi Gateway server returns an [HTTP 201 ("Created")](https://http.cat/201) status code responds with a JSON document that includes additional information:
@@ -191,11 +191,11 @@ One important note: in our developer instance, we can access the _okapi-test-mod
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9131/testb
-HTTP/1.1 200 OK
-Content-Type: text/plain
-Content-Length: 8
+  HTTP/1.1 200 OK
+  Content-Type: text/plain
+  Content-Length: 8
 
-It works
+  It works
 ```
 
 In a production system, there will probably be a firewall that prevents direct access to the Okapi Module interfaces.
@@ -207,11 +207,11 @@ Let's try that now:
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/testb
-HTTP/1.1 403 Forbidden
-Content-Type: text/plain
-Content-Length: 14
+  HTTP/1.1 403 Forbidden
+  Content-Type: text/plain
+  Content-Length: 14
 
-Missing Tenant
+  Missing Tenant
 ```
 
 Okapi is inherently a multi-tenant system, so each request to an Okapi Module must be performed on behalf of a tenant.
@@ -227,16 +227,16 @@ $ cat > okapi-tenant.json <<END
 END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-tenant.json http://localhost:9130/_/proxy/tenants
-HTTP/1.1 201 Created
-Content-Type: application/json
-Location: /_/proxy/tenants/testlib
-Content-Length: 91
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Location: /_/proxy/tenants/testlib
+  Content-Length: 91
 
-{
- "id" : "testlib",
- "name" : "Test Library",
- "description" : "Our Own Test Library"
-}
+  {
+   "id" : "testlib",
+   "name" : "Test Library",
+   "description" : "Our Own Test Library"
+  }
 ```
 ### Enable _test-module_ for the _testlib_ tenant
 Now that the tenant is created, we need to enable _test-module_ for that tenant:
@@ -249,14 +249,14 @@ $ cat > okapi-enable-basic.json <<END
 END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-enable-basic.json http://localhost:9130/_/proxy/tenants/testlib/modules
-HTTP/1.1 201 Created
-Content-Type: application/json
-Location: /_/proxy/tenants/test-basic
-Content-Length: 25
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Location: /_/proxy/tenants/test-basic
+  Content-Length: 25
 
-{
- "id" : "test-basic"
-}
+  {
+   "id" : "test-basic"
+  }
 ```
 
 Switch back to the Okapi Gateway terminal to see the debug output for this last request.
@@ -287,12 +287,12 @@ We, too, must also add an `X-Okapi-Tenant` header when sending a request to an O
 
 ```shell
 $ curl -i -w '\n' -X GET -H 'X-Okapi-Tenant: testlib' http://localhost:9130/testb
-HTTP/1.1 200 OK
-Content-Type: text/plain
-X-Okapi-Trace: GET - Okapi test module http://localhost:9131/testb : 200 12629us
-Transfer-Encoding: chunked
+  HTTP/1.1 200 OK
+  Content-Type: text/plain
+  X-Okapi-Trace: GET - Okapi test module http://localhost:9131/testb : 200 12629us
+  Transfer-Encoding: chunked
 
-It works
+  It works
 ```
 
 Also note that the core interfaces behave as we expect them to by returning JSON lists.

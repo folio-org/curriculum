@@ -1,12 +1,12 @@
 # Deploy test Stripes module
 
 ## Inform the Yarn package manager of the FOLIO UI registry location
-
+(Note: the output of commands is artificially indented from the command line to call out the command lines.)
 ```
 $ yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
-yarn config v0.20.3
-success Set "@folio:registry" to "https://repository.folio.org/repository/npm-folio/".
-✨  Done in 0.04s.
+  yarn config v0.20.3
+  success Set "@folio:registry" to "https://repository.folio.org/repository/npm-folio/".
+  ✨  Done in 0.04s.
 ```
 
 ## Set up a Stripes Development UI Server
@@ -61,25 +61,25 @@ Download/update Stripes along with its dependencies and modules, and link them t
 
 ```bash
 $ yarn install
-yarn install v0.20.3
-info No lockfile found.
-warning No license field
-[1/4] 🔍  Resolving packages...
-[2/4] 🚚  Fetching packages...
-[3/4] 🔗  Linking dependencies...
-[4/4] 📃  Building fresh packages...
-success Saved lockfile.
-✨  Done in 40.40s.
+  yarn install v0.20.3
+  info No lockfile found.
+  warning No license field
+  [1/4] 🔍  Resolving packages...
+  [2/4] 🚚  Fetching packages...
+  [3/4] 🔗  Linking dependencies...
+  [4/4] 📃  Building fresh packages...
+  success Saved lockfile.
+  ✨  Done in 40.40s.
 ```
 
 After the Stripes UI Server is built, run it using the `yarn start` command:
 
 ```bash
 $ yarn start
-yarn start v0.20.3
-$ stripes dev stripes.config.js
-Listening at http://localhost:3000
-webpack built 554cedd72fbedc2f7499 in 7890ms
+  yarn start v0.20.3
+  $ stripes dev stripes.config.js
+  Listening at http://localhost:3000
+  webpack built 554cedd72fbedc2f7499 in 7890ms
 ```
 
 The Stripes UI Server is now running at http://localhost:3000. The server will respond after the `webpack built...` message is displayed.
