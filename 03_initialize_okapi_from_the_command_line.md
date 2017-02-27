@@ -42,10 +42,10 @@ Another core service is `/_/discovery`; it is used to interact with nodes in the
 More details about these core services can be found in the [Okapi Guide and Reference](https://github.com/folio-org/okapi/blob/master/doc/guide.md#deployment-and-discovery).
 In the next section we will use these two core services to register a module and a tenant.
 
-## Defining the `okapi-test-module` within the Okapi Gateway
+## Defining the _okapi-test-module_ within the Okapi Gateway
 Defining a module with the Okapi Gateway occurs in three steps: registering, deploying, and configuring the proxy.
 
-### Registering `okapi-test-module`
+### Registering _okapi-test-module_
 To tell Okapi that we want to use the okapi-test-module, we create a JSON structure of a "Module Descriptor" and POST it to Okapi.
 The command below creates a Module Descriptor JSON structure.
 (Leave the Okapi Gateway running in one window and execute this command in another window.)
@@ -127,7 +127,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
 ```
 
-### Deploying  `okapi-test-module`
+### Deploying _okapi-test-module_
 Although we have registered the module with the Okapi Gateway, we have not yet instantiated the module so there is something available to respond to requests.
 The module must also be deployed on one node (or more, in the case of clusters).
 First, let's query the discovery service for a list of nodes it knows about in the cluster:
@@ -238,7 +238,7 @@ Content-Length: 91
  "description" : "Our Own Test Library"
 }
 ```
-
+### Enable _test-module_ for the _testlib_ tenant
 Now that the tenant is created, we need to enable _test-module_ for that tenant:
 
 ```shell
