@@ -128,6 +128,15 @@ Return to the terminal window with _Okapi-test-module_ running and press Control
 _Okapi-test-auth-module_ is a simple module that illustrates authentication in Okapi.
 The Okapi Gateway itself does not handle authentication; rather, it delegates authentication to an Okapi Module that operates at a very high level in the chain of module requests orchestrated by the Okapi Gateway.
 
+First we start the test auth module:
+
+```shell
+$ cd $FOLIO_ROOT/okapi
+$ java -jar okapi-test-auth-module/target/okapi-test-auth-module-fat.jar
+  02:15:42 INFO  MainVerticle         Starting auth 26062@contrib-jessie on port 9020
+  02:15:42 INFO  ertxIsolatedDeployer Succeeded in deploying verticle
+```
+
 The `/login` path of _Okapi-test-auth-module_ takes a simple JSON document with a 'username' and a 'password' value.
 If the password is the same as the username with the string '-password' appended, then the authentication is successful and a token is returned.
 
