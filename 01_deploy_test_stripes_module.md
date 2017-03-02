@@ -41,7 +41,7 @@ The `package.json` below builds Stripes with a 'trivial' client bundle.
     "start": "stripes dev stripes.config.js"
   },
   "dependencies": {
-    "@folio/stripes-core": "^0.0.9-test",
+    "@folio/stripes-core": "^0.0.11",
     "@folio/trivial": "^0.0.2-test"
   }
 }
