@@ -1,6 +1,7 @@
 ---
 # Ansible playbook for Lesson 4
 - hosts: localhost
+  tasks:
     - name: Create platform package.json
       copy: src=files/04_package.json dest={{ folio_root }}/stripes-tutorial-platform/package.json
       notify: Rebuild Stripes
