@@ -13,11 +13,11 @@
       notify: Rebuild Stripes
 
     - name: Create platform package.json
-      copy: src=files/package.json dest={{ folio_root }}/stripes-tutorial-platform/package.json
+      copy: src=files/01_package.json dest={{ folio_root }}/stripes-tutorial-platform/package.json
       notify: Rebuild Stripes
 
     - name: Create platform stripes.config.js
-      copy: src=files/stripes.config.js dest={{ folio_root }}/stripes-tutorial-platform/stripes.config.js
+      copy: src=files/01_stripes.config.js dest={{ folio_root }}/stripes-tutorial-platform/stripes.config.js
 
   handlers:
     - name: Rebuild Stripes

@@ -21,7 +21,7 @@ The new file should look like:
     "start": "stripes dev stripes.config.js"
   },
   "dependencies": {
-    "@folio/stripes-core": "^0.0.9-test",
+    "@folio/stripes-core": "^0.0.11",
     "@folio/users": "^0.0.1-test",
     "@folio/trivial": "^0.0.2-test"
   }
@@ -75,6 +75,7 @@ The next tutorial section may be review.
 
 ## Add the Users app Okapi Module to the Okapi Gateway
 
+<!--- I believe this is not necessary
 Prior to installing the Users Okapi Module, we need a tool called _[RAML Module Builder](https://github.com/folio-org/raml-module-builder)_.
 [RAML](http://raml.org/) is the _RESTful API Modeling Language_: it is a language for defining RESTful APIs in a concise, machine-readable form that enables easy reusability.
 RAML Module Builder reads a RAML file and generates Java code that reduces much of the "boilerplate" work required when creating an Okapi module.
@@ -116,7 +117,7 @@ $ mvn install
   [INFO] Final Memory: 95M/660M
   [INFO] ------------------------------------------------------------------------
 ```
-
+-->
 ### Fetch and build the Users app Okapi Module
 ```shell
 $ cd $FOLIO_ROOT
@@ -148,7 +149,7 @@ $ mvn install
 ```
 
 ### Register and Deploy the Users app Okapi Module
-The Git repository for Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) and a [Deployment Descriptor](https://github.com/folio-org/mod-users/blob/master/DeploymentDescriptor.json) that can be used to register and deploy the Users app Okapi Module.
+The Git repository for the Users app Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) and a [Deployment Descriptor](https://github.com/folio-org/mod-users/blob/master/DeploymentDescriptor.json) that can be used to register and deploy the Users app Okapi Module.
 
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
