@@ -10,7 +10,7 @@
       copy: src=files/04_stripes.config.js dest={{ folio_root }}/stripes-tutorial-platform/stripes.config.js
 
     - name: Clone mod-users git repository
-      git: repo=https://github.com/folio-org/mod-users dest={{ folio_root }}/mod-users
+      git: repo=https://github.com/folio-org/mod-users dest={{ folio_root }}/mod-users version=bdd922cdcd5c40e288825612874ddf3f2372a89c
       register: mod_users_clone
 
     - name: Force Maven build if repository updated
