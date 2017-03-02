@@ -21,7 +21,7 @@ The new file should look like:
     "start": "stripes dev stripes.config.js"
   },
   "dependencies": {
-    "@folio/stripes-core": "^0.0.9-test",
+    "@folio/stripes-core": "^0.0.11",
     "@folio/users": "^0.0.1-test",
     "@folio/trivial": "^0.0.2-test"
   }
@@ -75,6 +75,7 @@ The next tutorial section may be review.
 
 ## Add the Users app Okapi Module to the Okapi Gateway
 
+<!--- I believe this is not necessary
 Prior to installing the Users Okapi Module, we need a tool called _[RAML Module Builder](https://github.com/folio-org/raml-module-builder)_.
 [RAML](http://raml.org/) is the _RESTful API Modeling Language_: it is a language for defining RESTful APIs in a concise, machine-readable form that enables easy reusability.
 RAML Module Builder reads a RAML file and generates Java code that reduces much of the "boilerplate" work required when creating an Okapi module.
@@ -116,7 +117,7 @@ $ mvn install
   [INFO] Final Memory: 95M/660M
   [INFO] ------------------------------------------------------------------------
 ```
-
+-->
 ### Fetch and build the Users app Okapi Module
 ```shell
 $ cd $FOLIO_ROOT
@@ -148,7 +149,7 @@ $ mvn install
 ```
 
 ### Register and Deploy the Users app Okapi Module
-The Git repository for Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) and a [Deployment Descriptor](https://github.com/folio-org/mod-users/blob/master/DeploymentDescriptor.json) that can be used to register and deploy the Users app Okapi Module.
+The Git repository for the Users app Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) that can be used to register the Users app Okapi Module.
 
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
@@ -163,8 +164,23 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
     "name" : "users",
    [...]
   }
+```
+
+You will also need to deploy the module with a Deployment Descriptor:
+
+```shell
+$ cd $FOLIO_ROOT
+$ cat > okapi-deploy-mod-users.json <<END
+{
+  "srvcId" : "users-module",
+  "nodeId" : "localhost",
+  "descriptor" : {
+    "exec" : "java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true"
+  }
+}
+END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
-  -d @DeploymentDescriptor.json http://localhost:9130/_/discovery/modules
+  -d @okapi-deploy-mod-users.json http://localhost:9130/_/discovery/modules
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/discovery/modules/users-module/localhost-9131
@@ -179,6 +195,26 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
       "exec" : "java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true"
     }
   }
+```
+
+Finally, you'll need to enable the Okapi Users app module for the test tenant:
+
+```
+$ cat > okapi-enable-users.json <<END
+{
+  "id" : "users-module"
+}
+END
+$ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
+   -d @okapi-enable-users.json http://localhost:9130/_/proxy/tenants/testlib/modules
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: /_/proxy/tenants/testlib/modules/users-module
+Content-Length: 27
+
+{
+  "id" : "users-module"
+}
 ```
 
 The FOLIO Users app is now available at [http://localhost:3000/users](http://localhost:3000/users).

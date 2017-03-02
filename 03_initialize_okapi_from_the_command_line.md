@@ -52,9 +52,9 @@ The command below creates a Module Descriptor JSON structure.
 
 ```shell
 $ cd $FOLIO_ROOT
-cat > okapi-proxy-test-basic.json <<END
+$ cat > okapi-proxy-test-basic.json <<END
   {
-    "id" : "test-module",
+  "id" : "test-module",
     "name" : "Okapi test module",
     "provides" : [ {
         "id" : "test-basic",
