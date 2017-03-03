@@ -75,49 +75,6 @@ The next tutorial section may be review.
 
 ## Add the Users app Okapi Module to the Okapi Gateway
 
-<!--- I believe this is not necessary
-Prior to installing the Users Okapi Module, we need a tool called _[RAML Module Builder](https://github.com/folio-org/raml-module-builder)_.
-[RAML](http://raml.org/) is the _RESTful API Modeling Language_: it is a language for defining RESTful APIs in a concise, machine-readable form that enables easy reusability.
-RAML Module Builder reads a RAML file and generates Java code that reduces much of the "boilerplate" work required when creating an Okapi module.
-
-### Build _RAML Module Builder_
-```shell
-$ cd $FOLIO_ROOT
-$ git clone --recursive https://github.com/folio-org/raml-module-builder.git
-  Cloning into 'raml-module-builder'...
-  remote: Counting objects: 6243, done.
-  remote: Total 6243 (delta 0), reused 0 (delta 0), pack-reused 6243
-  Receiving objects: 100% (6243/6243), 2.92 MiB | 752.00 KiB/s, done.
-  Resolving deltas: 100% (2725/2725), done.
-  Submodule 'raml-util' (https://github.com/folio-org/raml.git) registered for path 'raml-util'
-  Cloning into '/Users/peter/code/folio-trial/raml-module-builder/raml-util'...
-  remote: Counting objects: 409, done.
-  remote: Compressing objects: 100% (7/7), done.
-  remote: Total 409 (delta 2), reused 0 (delta 0), pack-reused 397
-  Receiving objects: 100% (409/409), 85.73 KiB | 0 bytes/s, done.
-  Resolving deltas: 100% (238/238), done.
-  Submodule path 'raml-util': checked out 'f64234a0f482afdc5d2ea9e1e9f9ff33765f897e'
-$ cd raml-module-builder
-$ mvn install
-  [...]
-  [INFO] ------------------------------------------------------------------------
-  [INFO] Reactor Summary:
-  [INFO]
-  [INFO] raml-module-builder ................................ SUCCESS [  1.095 s]
-  [INFO] domain-models-api-aspects .......................... SUCCESS [  1.582 s]
-  [INFO] domain-models-interface-extensions ................. SUCCESS [  0.735 s]
-  [INFO] domain-models-api-interfaces ....................... SUCCESS [  3.379 s]
-  [INFO] rules .............................................. SUCCESS [  2.330 s]
-  [INFO] domain-models-runtime .............................. SUCCESS [ 48.136 s]
-  [INFO] ------------------------------------------------------------------------
-  [INFO] BUILD SUCCESS
-  [INFO] ------------------------------------------------------------------------
-  [INFO] Total time: 57.389 s
-  [INFO] Finished at: 2017-02-24T16:30:33-05:00
-  [INFO] Final Memory: 95M/660M
-  [INFO] ------------------------------------------------------------------------
-```
--->
 ### Fetch and build the Users app Okapi Module
 ```shell
 $ cd $FOLIO_ROOT
@@ -149,7 +106,7 @@ $ mvn install
 ```
 
 ### Register and Deploy the Users app Okapi Module
-The Git repository for the Users app Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) that can be used to register the Users app Okapi Module.
+The Git repository for the Users app Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) and a [Deployment Descriptor](https://github.com/folio-org/mod-users/blob/master/DeploymentDescriptor.json) that can be used to register and deploy the Users app Okapi Module.
 
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
@@ -169,18 +126,8 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 You will also need to deploy the module with a Deployment Descriptor:
 
 ```shell
-$ cd $FOLIO_ROOT
-$ cat > okapi-deploy-mod-users.json <<END
-{
-  "srvcId" : "users-module",
-  "nodeId" : "localhost",
-  "descriptor" : {
-    "exec" : "java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true"
-  }
-}
-END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
-  -d @okapi-deploy-mod-users.json http://localhost:9130/_/discovery/modules
+  -d @DeploymentDescriptor.json http://localhost:9130/_/discovery/modules
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/discovery/modules/users-module/localhost-9131
@@ -197,6 +144,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
   }
 ```
 
+(Note: Your port number in the `instId` and the `url` may vary depending on whether there are other Okapi Modules deployed on the Okapi Gateway.)
 Finally, you'll need to enable the Okapi Users app module for the test tenant:
 
 ```

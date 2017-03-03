@@ -25,6 +25,8 @@ When in doubt, using the VirtualBox guest machine is recommended.
 * Node.js 6.x or higher
 * [Yarn](https://yarnpkg.com/en/) package manager v0.20.3 or higher
 
+(Note that on MacOS these prerequisites can be installed using [Homebrew](https://brew.sh/).)
+
 ### VirtualBox guest
 * [VirtualBox 5.1 or higher](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant 1.9.1 or higher](https://www.vagrantup.com/downloads.html)
