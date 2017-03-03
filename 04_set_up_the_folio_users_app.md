@@ -106,7 +106,7 @@ $ mvn install
 ```
 
 ### Register and Deploy the Users app Okapi Module
-The Git repository for the Users app Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) that can be used to register the Users app Okapi Module.
+The Git repository for the Users app Okapi Module has a [Module Descriptor](https://github.com/folio-org/mod-users/blob/master/ModuleDescriptor.json) and a [Deployment Descriptor](https://github.com/folio-org/mod-users/blob/master/DeploymentDescriptor.json) that can be used to register and deploy the Users app Okapi Module.
 
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
@@ -126,18 +126,8 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 You will also need to deploy the module with a Deployment Descriptor:
 
 ```shell
-$ cd $FOLIO_ROOT
-$ cat > okapi-deploy-mod-users.json <<END
-{
-  "srvcId" : "users-module",
-  "nodeId" : "localhost",
-  "descriptor" : {
-    "exec" : "java -jar ../mod-users/target/mod-users-fat.jar -Dhttp.port=%p embed_postgres=true"
-  }
-}
-END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
-  -d @okapi-deploy-mod-users.json http://localhost:9130/_/discovery/modules
+  -d @DeploymentDescriptor.json http://localhost:9130/_/discovery/modules
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/discovery/modules/users-module/localhost-9131
@@ -154,6 +144,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
   }
 ```
 
+(Note: Your port number in the `instId` and the `url` may vary depending on whether there are other Okapi Modules deployed on the Okapi Gateway.)
 Finally, you'll need to enable the Okapi Users app module for the test tenant:
 
 ```
