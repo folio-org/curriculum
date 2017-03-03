@@ -4,7 +4,7 @@
 
 ```shell
 $ cd $FOLIO_ROOT   # Set in lesson one of the tutorial
-$ git clone git@github.com:folio-org/okapi
+$ git clone https://github.com/folio-org/okapi.git
   Cloning into 'okapi'...
   remote: Counting objects: 11346, done.
   remote: Compressing objects: 100% (55/55), done.
