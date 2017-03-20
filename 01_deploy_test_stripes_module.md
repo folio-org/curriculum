@@ -106,7 +106,7 @@ The server will respond after the `webpack built...` message is displayed.
 The Stripes UI Server homepage at http://localhost:3000 looks like the figure below.
 ![Stripes homepage](pics/01_Stripes_homepage.png)
 
-There is one app the Stripes UI Server -- the "Trivial" app with the green icon.  Click on it to get a form:
+There is one app in the Stripes UI Server -- the "Trivial" app with the green icon.  Click on it to get a form:
 
 ![Trivial homepage](pics/01_Trivial_homepage.png)
 
