@@ -35,6 +35,7 @@ To download the VirtualBox guest:
 1. Make a clean directory and change into it: `mkdir folio-curriculum && cd folio-curriculum`
 1. Set up the Vagrantfile: `vagrant init --minimal folio/curriculum`
 1. Launch the VirtualBox guest: `vagrant up`
+1. Connect to the VirtualBox guest: `vagrant ssh`
 
 ## Lessons/Steps
 1. [Deploy test Stripes package](01_deploy_test_stripes_module)
