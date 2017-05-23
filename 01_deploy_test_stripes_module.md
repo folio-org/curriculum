@@ -92,6 +92,7 @@ $ yarn start
   webpack built 554cedd72fbedc2f7499 in 7890ms
 ```
 
+<div class="vagrant-note" markdown="1">
 If you are using the VirtualBox guest machine, set the environment variable
 `STRIPES_HOST` before running `yarn start` to allow the Stripes development
 server to listen on all interfaces:
@@ -100,6 +101,7 @@ server to listen on all interfaces:
 
 The Stripes UI Server is now running at http://localhost:3000.
 The server will respond after the `webpack built...` message is displayed.
+</div>
 
 ## Interacting with the Stripes UI Server
 

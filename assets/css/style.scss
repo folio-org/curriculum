@@ -1,0 +1,13 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.vagrant-note {
+  background-image: url(../img/vagrant-icon.png);
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  border: 5px solid #2991CC;
+  margin: 10px 0 15px 0;
+  padding: 10px 15px 15px 100px;
+}

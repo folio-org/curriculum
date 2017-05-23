@@ -37,6 +37,13 @@ To download the VirtualBox guest:
 1. Launch the VirtualBox guest: `vagrant up`
 1. Connect to the VirtualBox guest: `vagrant ssh`
 
+<div class="vagrant-note" markdown="1">
+In subsequent lessons, the command lines are executed within the VirtualBox guest.
+Be sure you are connected to the VirtualBox guest (from the host computer: `vagrant ssh`) before running the commands.
+
+Other instructions and commands that are specific to the VirtualBox guest mode of using the tutorial are noted using this style of information box.
+</div>
+
 ## Lessons/Steps
 1. [Deploy test Stripes package](01_deploy_test_stripes_module)
 1. [Clone, build and explore Okapi](02_clone_build_and_explore_okapi)
