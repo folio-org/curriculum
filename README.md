@@ -44,6 +44,27 @@ Be sure you are connected to the VirtualBox guest (from the host computer: `vagr
 Other instructions and commands that are specific to the VirtualBox guest mode of using the tutorial are noted using this style of information box.
 </div>
 
+## Set `FOLIO_ROOT` Variable for Lessons
+Each lesson assumes the existence of a `$FOLIO_ROOT` shell variable.
+This variable holds the path to a directory where the components of the Okapi Server and the Stripes Development UI Server are located.
+
+<div class="vagrant-note" markdown="1">
+If using the VirtualBox guest setup, it is recommended to first `cd /vagrant` before creating the empty directory. Doing so makes the Okapi and Stripes files available from the host operating system in the same directory the Vagrantfile file is located.
+
+The first command below connects from the VirtualBox host to the VirtualBox guest.
+The second command changes the working directory to the shared `vagrant` directory.
+
+```shell
+$ vagrant ssh
+$ cd /vagrant
+```
+</div>
+
+```shell
+$ mkdir folio-tutorial-working-files
+$ export FOLIO_ROOT=`pwd`
+```
+
 ## Lessons/Steps
 1. [Deploy test Stripes package](01_deploy_test_stripes_module)
 1. [Clone, build and explore Okapi](02_clone_build_and_explore_okapi)
