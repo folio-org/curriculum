@@ -1,5 +1,7 @@
 # Deploy test Stripes module
 
+In this lesson we set aside the Okapi server and focus on the web-based user interface, Stripes.  The Okapi Gateway is not required for this lesson.
+
 ## Inform the Yarn package manager of the FOLIO UI registry location
 (Note: the output of commands is artificially indented from the command line to call out the command lines.)
 ```
@@ -47,16 +49,17 @@ The `package.json` below builds Stripes with a 'trivial' client bundle.
 ### Contents of `stripes.config.js`
 `stripes.config.js` contains the configuration details for the Stripes UI Server.
 It is referenced in _scripts_ dictionary of `package.json`.
-It is a JSON file with two required dictionaries: _config_ and _modules_.
-The _config_ dictionary contains one key-value pair setting `disableAuth` to `true`.
-(Authentication and authorization are covered later in this tutorial.)
+It is a JSON file with three required dictionaries: _okapi_, _config_ and _modules_.
+The _okapi_ dictionary specifies the details for connecting to the Okapi Gateway; it is not used in this lesson.
+The _config_ dictionary contains two key-value pairs to bypass authentication and authorization checks.
 The _modules_ dictionary contains another dictionary of Stripes package and their configuration.
 The key in this dictionary is the name of the package to load from the FOLIO UI registry.
 The value in this dictionary are parameters that can override the default settings of the Stripes package.
 
 ```javascript
 module.exports = {
-  config: { disableAuth: true },
+  okapi: {},
+  config: { disableAuth: true, hasAllPerms: true },
   modules: {
     '@folio/trivial': {}
   }

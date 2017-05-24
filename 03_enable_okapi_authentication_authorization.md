@@ -1,9 +1,10 @@
-# Enable Okapi Authentication and Authorization
+# Enable Okapi Authentication
 
 All real-world uses of Okapi will need to provide authentication and authorization services.
-The Okapi Gateway itself does not handle authentication; rather, it delegates authentication to an Okapi Module that operates at an early phase of module requests orchestrated by the Okapi Gateway.
+The Okapi Gateway itself does not handle these tasks; rather, it delegates them to one or more Okapi Modules that operates at an early phase of module requests orchestrated by the Okapi Gateway.
 In this lesson we will first interact directly with a sample authentication Okapi Module.
 Later in the lesson we will register and deploy the sample authentication module on the Okapi Gateway.
+Authorization will be covered in a later lesson.
 
 ## Interact Directly with Okapi-test-auth-module
 _Okapi-test-auth-module_ is a simple module that illustrates authentication in Okapi, and it comes with _okapi-core_.
