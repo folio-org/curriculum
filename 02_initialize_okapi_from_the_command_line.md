@@ -1,8 +1,15 @@
 # Initialize Okapi from the command line
 
 ## Start the Okapi Gateway
+
+In a terminal window, start the Okapi Gateway service.
+
+<div class="vagrant-note" markdown="1">
+When using the VirtualBox method, you will need to open a terminal window on your host computer, change the working directory to the location of the `Vagrantfile`, and use the `vagrant ssh` command to connect from the host computer to the guest.
+</div>
+
 ```shell
-$ cd $FOLIO_ROOT/okapi   # Set in lesson one of the tutorial
+$ cd $FOLIO_ROOT/okapi
 $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
   12:08:11 INFO  MainVerticle         git: git@github.com:folio-org/okapi 225c9c1e03c29459da430f93110abb30378e1394
   12:08:11 INFO  MainVerticle         clusterManager not in use
@@ -16,7 +23,8 @@ The `dev` parameter starts the Okapi Gateway in 'development mode' (a known, cle
 The Okapi Gateway is using an in-memory database (a built-in PostgreSQL database can be specified by adding `-Dstorage=postgres` before the `-jar` parameter).
 We are going to run the Okapi Gateway with debugging turned on so you can see the effect of the requests passing through the gateway.
 The last line of output tells us that the Okapi Gateway is running on port 9130.
-We can use two curl commands to list the Okapi Modules and tenants known to the gateway:
+
+Open up a second terminal window (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh command`), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
@@ -54,26 +62,33 @@ The command below creates a Module Descriptor JSON structure.
 $ cd $FOLIO_ROOT
 $ cat > okapi-proxy-test-basic.json <<END
   {
-  "id" : "test-module",
-    "name" : "Okapi test module",
-    "provides" : [ {
-        "id" : "test-basic",
-        "version" : "2.2.3"
+    "id": "test-basic-1.0.0",
+    "name": "Okapi test module",
+    "provides": [
+      {
+        "id": "test-basic",
+        "version": "2.2",
+        "handlers": [
+          {
+            "methods": [ "GET", "POST" ],
+            "pathPattern": "/testb"
+          }
+        ]
       },
       {
-        "id" : "_tenant",
-        "version" : "1.0.0"
-    } ],
-    "routingEntries" : [ {
-      "methods" : [ "GET", "POST" ],
-      "path" : "/testb",
-      "level" : "30",
-      "type" : "request-response",
-      "permissionsRequired" : [ "test-basic.needed" ],
-      "permissionsDesired" : [ "test-basic.extra" ]
-    } ],
-    "launchDescriptor" : {
-      "exec" : "java -Dport=%p -jar okapi-test-module/target/okapi-test-module-fat.jar"
+        "id": "_tenant",
+        "version": "1.0",
+        "interfaceType": "system",
+        "handlers": [
+          {
+            "methods": [ "POST" ],
+            "pathPattern": "/_/tenant"
+          }
+        ]
+      }
+    ],
+    "launchDescriptor": {
+      "exec": "java -Dport=%p -jar okapi-test-module/target/okapi-test-module-fat.jar"
     }
   }
 END
@@ -83,10 +98,9 @@ This is a module descriptor for `test-module` (the first `id` key-value pair).
 It `provides` two interfaces: `test-basic` and `_tenant`.
 The `test-basic` interface is how clients will communicate with the Okapi Module (as we did directly in the previous lesson).
 Interfaces beginning with an underscore (such as `_tenant`) are reserved system interfaces; in this case, an interface that is called when a module is enabled or disabled for a tenant.
-The `routingEntries` dictionary tells the gateway:
+The `handling` dictionary tells the gateway:
 * which HTTP methods are expected
 * the path registered in the gateway for which this interface will receive requests
-* the priority of this module relative to other modules registered on the same path as the chain of modules is constructed by the gateway
 * the type of response provided by this module interface
 * permissions required (enforced by the Okapi Gateway)
 * permissions desired (a list of requester's permissions that the business logic of this module needs to know about)
@@ -99,13 +113,13 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-proxy-test-basic.json http://localhost:9130/_/proxy/modules
   HTTP/1.1 201 Created
   Content-Type: application/json
-  Location: /_/proxy/modules/test-module
-  Content-Length: 548
+  Location: /_/proxy/modules/test-basic-1.0.0
+  Content-Length: 350
 
   {
-   "id" : "test-module",
-   "name" : "Okapi test module",
-  ...
+    "id" : "test-basic-1.0.0",
+    "name" : "Okapi test module",
+    ...
   }
 ```
 
@@ -117,7 +131,7 @@ Run these commands to list the modules known to the gateway, delete _test-module
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
 
-$ curl -i -w '\n' -X DELETE http://localhost:9130/_/proxy/modules/test-module
+$ curl -i -w '\n' -X DELETE http://localhost:9130/_/proxy/modules/test-basic-1.0.0
 
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
 
@@ -151,7 +165,7 @@ To deploy the module, we create a "Deployment Descriptor" JSON document:
 ```shell
 $ cat > okapi-deploy-test-basic.json <<END
 {
-  "srvcId" : "test-module",
+  "srvcId" : "test-basic-1.0.0",
   "nodeId" : "localhost"
 }
 END
@@ -162,20 +176,20 @@ Then post this document to the `/_/discovery` core service:
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-deploy-test-basic.json http://localhost:9130/_/discovery/modules
-  HTTP/1.1 201 Created
-  Content-Type: application/json
-  Location: /_/discovery/modules/test-module/localhost-9131
-  Content-Length: 232
+ HTTP/1.1 201 Created
+ Content-Type: application/json
+ Location: /_/discovery/modules/test-basic-1.0.0/localhost-9131
+ Content-Length: 237
 
-  {
+ {
    "instId" : "localhost-9131",
-   "srvcId" : "test-module",
+   "srvcId" : "test-basic-1.0.0",
    "nodeId" : "localhost",
    "url" : "http://localhost:9131",
    "descriptor" : {
      "exec" : "java -Dport=%p -jar okapi-test-module/target/okapi-test-module-fat.jar"
    }
-  }
+ }
 ```
 
 The Okapi Gateway server returns an [HTTP 201 ("Created")](https://http.cat/201) status code responds with a JSON document that includes additional information:
@@ -198,7 +212,7 @@ $ curl -i -w '\n' -X GET http://localhost:9131/testb
   It works
 ```
 
-In a production system, there will probably be a firewall that prevents direct access to the Okapi Module interfaces.
+In a production system, there would be a firewall that prevents direct access to the Okapi Module interfaces.
 Requests for Okapi Module services must go through the Okapi Gateway to ensure that access control and tenant restrictions are honored.
 
 ## Creating a tenant
@@ -244,40 +258,44 @@ Now that the tenant is created, we need to enable _test-module_ for that tenant:
 ```shell
 $ cat > okapi-enable-basic.json <<END
 {
-  "id" : "test-module"
+  "id" : "test-basic-1.0.0"
 }
 END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @okapi-enable-basic.json http://localhost:9130/_/proxy/tenants/testlib/modules
   HTTP/1.1 201 Created
   Content-Type: application/json
-  Location: /_/proxy/tenants/test-basic
-  Content-Length: 25
+  Location: /_/proxy/tenants/testlib/modules/test-basic-1.0.0
+  Content-Length: 31
 
   {
-   "id" : "test-basic"
+    "id" : "test-basic-1.0.0"
   }
 ```
 
 Switch back to the Okapi Gateway terminal to see the debug output for this last request.
 
 ```
-16:04:04 DEBUG TenantManager        findTenantInterface: prov: [{"id":"test-basic","version":"2.2.3"},{"id":"_tenant","version":"1.0.0"}]
-16:04:04 DEBUG TenantManager        findTenantInterface: Looking at test-basic
-16:04:04 DEBUG TenantManager        findTenantInterface: Looking at _tenant
-16:04:04 DEBUG TenantWebService     enableModule Url: http://localhost:9131 and /_/tenant
-16:04:04 DEBUG TenantWebService     Added X-Okapi-Tenant : testlib
-16:04:04 DEBUG OkapiClient          OkapiClient: POST request to http://localhost:9131/_/tenant
-16:04:04 DEBUG OkapiClient          OkapiClient: adding header Accept: */*
-16:04:04 DEBUG OkapiClient          OkapiClient: adding header X-Okapi-Tenant: testlib
-16:04:04 DEBUG OkapiClient          OkapiClient: adding header Content-Type: application/json; charset=UTF-8
-16:04:04 DEBUG OkapiClient          OkapiClient Buffering response POST request to okapi-test-module tenant service for tenant testlib
-
-16:04:04 INFO  MainVerticle         POST request to okapi-test-module tenant service for tenant testlib
-16:04:04 DEBUG OkapiClient          OkapiClient Buffering response {
-  "module_to" : "test-module"
+21:32:59 DEBUG ProxyContext         176769/_ Assigned new reqId 176769/_
+21:32:59 INFO  ProxyContext         176769/_ REQ 0:0:0:0:0:0:0:1:35269 - POST /_/proxy/tenants/testlib/modules
+21:32:59 DEBUG TenantManager        findTenantInterface: prov: [{"id":"test-basic","version":"2.2","handlers":[{"methods":["GET","POST"],"pathPattern":"/testb"}]},{"id":"_tenant","version":"1.0","interfaceType":"system","handlers":[{"methods":["POST"],"pathPattern":"/_/tenant"}]}]
+21:32:59 DEBUG TenantManager        findTenantInterface: Looking at test-basic
+21:32:59 DEBUG TenantManager        findTenantInterface: Looking at _tenant
+21:32:59 DEBUG ProxyContext         176769/_ enableModule Url: http://localhost:9131 and /_/tenant
+21:32:59 DEBUG TenantWebService     Added X-Okapi-Tenant : testlib
+21:32:59 INFO  OkapiClient          176769/_;005955/tenant REQ okapiClient testlib POST http://localhost:9131/_/tenant
+21:32:59 DEBUG OkapiClient          176769/_;005955/tenant OkapiClient: adding header X-Okapi-Request-Id: 176769/_;005955/tenant
+21:32:59 DEBUG OkapiClient          176769/_;005955/tenant OkapiClient: adding header Accept: */*
+21:32:59 DEBUG OkapiClient          176769/_;005955/tenant OkapiClient: adding header X-Okapi-Tenant: testlib
+21:32:59 DEBUG OkapiClient          176769/_;005955/tenant OkapiClient: adding header Content-Type: application/json; charset=UTF-8
+21:32:59 INFO  OkapiClient          176769/_;005955/tenant RES 200 0us okapiClient http://localhost:9131/_/tenant
+21:32:59 DEBUG OkapiClient          176769/_;005955/tenant OkapiClient Buffering response POST request to okapi-test-module tenant service for tenant testlib
+21:32:59 INFO  MainVerticle         POST request to okapi-test-module tenant service for tenant testlib
+21:32:59 DEBUG OkapiClient          176769/_;005955/tenant OkapiClient Buffering response {
+  "module_to" : "test-basic-1.0.0"
 }
-16:04:04 DEBUG TenantWebService     enableModule: Init request to test-module succeeded
+21:32:59 DEBUG ProxyContext         176769/_ enableModule: Tenant init request to test-basic-1.0.0 succeeded
+21:32:59 INFO  ProxyContext         176769/_ RES 201 135657us okapi
 ```
 
 In this string of messages you can see the Okapi Gateway finding the tenant and, as a "loopback" OkapiClient, post a request to the reserved `/_/tenant` interface of _okapi-test-module_ on http://localhost:9191 (http://localhost:9191/_/tenant).

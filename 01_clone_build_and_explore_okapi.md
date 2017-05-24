@@ -1,34 +1,46 @@
 # Clone, Build, and Explore Okapi
 
-## Clone Okapi
+## Clone and Install Okapi
 
 ```shell
-$ cd $FOLIO_ROOT   # Set in lesson one of the tutorial
+$ cd $FOLIO_ROOT
 $ git clone --recursive https://github.com/folio-org/okapi.git
-  Cloning into 'okapi'...
-  remote: Counting objects: 11346, done.
-  remote: Compressing objects: 100% (55/55), done.
-  remote: Total 11346 (delta 21), reused 0 (delta 0), pack-reused 11283
-  Receiving objects: 100% (11346/11346), 1.95 MiB | 415.00 KiB/s, done.
-  Resolving deltas: 100% (5820/5820), done.
+  Receiving objects: 100% (13316/13316), 2.34 MiB | 655.00 KiB/s, done.
+  Resolving deltas: 100% (6813/6813), done.
+  Checking connectivity... done.
+  Submodule 'okapi-core/src/main/raml/raml-util' (https://github.com/folio-org/raml.git) registered for path 'okapi-core/src/main/raml/raml-util'
+  Cloning into 'okapi-core/src/main/raml/raml-util'...
+  remote: Counting objects: 636, done.
+  remote: Compressing objects: 100% (80/80), done.
+  remote: Total 636 (delta 61), reused 99 (delta 39), pack-reused 511
+  Receiving objects: 100% (636/636), 113.96 KiB | 126.00 KiB/s, done.
+  Resolving deltas: 100% (357/357), done.
+  Checking connectivity... done.
+  Submodule path 'okapi-core/src/main/raml/raml-util': checked out '4d0e256193190f62a4154fc5eebb3ce8cddd21e2'
+```
+
+The first time Okapi is installed will take several minutes as various JAR files are downloaded from the Maven repository.
+Subsequent installs will not take as long.
+
+```shell
 $ cd okapi
 $ mvn install
   [...]
   [INFO] ------------------------------------------------------------------------
   [INFO] Reactor Summary:
   [INFO]
-  [INFO] okapi .............................................. SUCCESS [  0.464 s]
-  [INFO] okapi-common ....................................... SUCCESS [  5.545 s]
-  [INFO] okapi-test-module .................................. SUCCESS [  1.191 s]
-  [INFO] okapi-test-auth-module ............................. SUCCESS [  0.731 s]
-  [INFO] okapi-test-header-module ........................... SUCCESS [  0.670 s]
-  [INFO] okapi-core ......................................... SUCCESS [ 27.901 s]
+  [INFO] okapi .............................................. SUCCESS [ 10.832 s]
+  [INFO] okapi-common ....................................... SUCCESS [01:28 min]
+  [INFO] okapi-test-module .................................. SUCCESS [ 12.656 s]
+  [INFO] okapi-test-auth-module ............................. SUCCESS [  1.374 s]
+  [INFO] okapi-test-header-module ........................... SUCCESS [  1.431 s]
+  [INFO] okapi-core ......................................... SUCCESS [02:15 min]
   [INFO] ------------------------------------------------------------------------
   [INFO] BUILD SUCCESS
   [INFO] ------------------------------------------------------------------------
-  [INFO] Total time: 37.231 s
-  [INFO] Finished at: 2017-02-27T16:56:58-05:00
-  [INFO] Final Memory: 62M/490M
+  [INFO] Total time: 04:21 min
+  [INFO] Finished at: 2017-05-23T20:23:32+00:00
+  [INFO] Final Memory: 38M/264M
   [INFO] ------------------------------------------------------------------------
 ```
 
@@ -54,8 +66,13 @@ $ java -jar okapi-test-module/target/okapi-test-module-fat.jar
   13:53:00 INFO  ertxIsolatedDeployer Succeeded in deploying verticle
 ```
 
-With the _Okapi-test-module_ now listening on port 8080, in another terminal window send a simple `curl` command.
-(Note that the `-i` command line option tells `curl` to output the response headers in addition to the response body, and the `-w '\n'` option adds a newline to the end of the response body to ensure the shell prompt starts on a new line.)
+With the _Okapi-test-module_ now listening on port 8080, in another terminal window send a simple `curl` command as shown below.
+
+<div class="vagrant-note" markdown="1">
+When using the VirtualBox method, you will need to open a new terminal window on your host computer, change the working directory to the location of the `Vagrantfile`, and use the `vagrant ssh` command to connect from the host computer to the guest.
+</div>
+
+Note that the `-i` command line option tells `curl` to output the response headers in addition to the response body, and the `-w '\n'` option adds a newline to the end of the response body to ensure the shell prompt starts on a new line.
 
 ```shell
 $ curl -i -w '\n' http://localhost:8080/testb
@@ -78,21 +95,13 @@ $ curl -i -w '\n' -X POST -d "Testing Okapi" http://localhost:8080/testb
 ```
 
 Okapi modules would typically send and receive JSON content bodies, but in these examples simple strings are sent and returned.
+Leave the Okapi Gateway running (as started by the `java -jar okapi-test-module/target/okapi-test-module-fat.jar` command above) for the next lesson section below.
 
 ### Interact with Okapi-test-module with headers
 As a RESTful interface, the Okapi Gateway communicates key data to Okapi Modules and to the client using HTTP headers.
 For example: as Okapi Modules are chained together by the Okapi Gateway, a module may want to signal to the gateway that it encountered an exception and must interrupt the chain.
 
-If you haven't done so already, start _Okapi-test-module_ in a terminal window:
-
-```shell
-$ cd $FOLIO_ROOT/okapi
-$ java -jar okapi-test-module/target/okapi-test-module-fat.jar
-  13:53:00 INFO  MainVerticle         Starting okapi-test-module 42510@Walkabout.lan on port 8080
-  13:53:00 INFO  ertxIsolatedDeployer Succeeded in deploying verticle
-```
-
-Next, in a separate terminal, send an HTTP GET request with an `X-my-header: blah` header (using the `-H` command line argument):
+For example, send an HTTP GET request with an `X-my-header: blah` header (using the `-H` command line argument):
 
 ```shell
 $ curl -i -w '\n' -X GET -H 'X-my-header: blah' http://localhost:8080/testb
@@ -123,50 +132,3 @@ $ curl -i -w '\n' -X GET -H 'X-my-header: blah' \
 The corresponding Okapi Module code that is handling this interaction can be found in the [okapi-test-module/.../MainVerticle.java]( https://github.com/folio-org/okapi/blob/master/okapi-test-module/src/main/java/org/folio/okapi/sample/MainVerticle.java) file.
 
 Return to the terminal window with _Okapi-test-module_ running and press Control-C to exit it.
-
-### Interact with Okapi-test-auth-module
-_Okapi-test-auth-module_ is a simple module that illustrates authentication in Okapi.
-The Okapi Gateway itself does not handle authentication; rather, it delegates authentication to an Okapi Module that operates at a very high level in the chain of module requests orchestrated by the Okapi Gateway.
-
-First we start the test auth module:
-
-```shell
-$ cd $FOLIO_ROOT/okapi
-$ java -jar okapi-test-auth-module/target/okapi-test-auth-module-fat.jar
-  02:15:42 INFO  MainVerticle         Starting auth 26062@contrib-jessie on port 9020
-  02:15:42 INFO  ertxIsolatedDeployer Succeeded in deploying verticle
-```
-
-The `/login` path of _Okapi-test-auth-module_ takes a simple JSON document with a 'username' and a 'password' value.
-If the password is the same as the username with the string '-password' appended, then the authentication is successful and a token is returned.
-
-```shell
-$ curl -i -w '\n' -X POST -H 'X-Okapi-Tenant: blah' \
-    -d '{"username": "seb", "password": "seb-password"}' \
-    http://localhost:9020/login
-  HTTP/1.1 200 OK
-  Content-Type: application/json
-  X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig
-  Content-Length: 47
-
-  {"username": "seb", "password": "seb-password"}
-```
-
-Now try to send a JSON document in which the password does not match the expected value.
-Note that the response returns an [HTTP 401 "Unauthorized"](https://http.cat/401) status.
-
-Another path supplied by _Okapi-test-auth-module_ is `/check`; it checks an _X-Okapi-Token_ to see if it is valid.
-```shell
-$ curl -i -w '\n' -X GET -H 'X-Okapi-Tenant: blah' \
-    -H 'X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig' \
-    http://localhost:9020/check
-  HTTP/1.1 202 Accepted
-  X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig
-  X-Okapi-Module-Tokens: {}
-  Content-Type: text/plain
-  Transfer-Encoding: chunked
-```
-
-Note that the response returns an [HTTP 202 "Accepted"](https://httpstatusdogs.com/202-accepted) status.
-Try sending a request without the required _X-Okapi-Tenant_ header.
-All requests are expected to send the _X-Okapi-Tenant_ header.
