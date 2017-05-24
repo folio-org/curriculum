@@ -60,8 +60,11 @@ $ cd /vagrant
 ```
 </div>
 
+Create the directory, enter the directory, and save the directory location using these commands:
+
 ```shell
 $ mkdir folio-tutorial-working-files
+$ cd folio-tutorial-working-files
 $ export FOLIO_ROOT=`pwd`
 ```
 
