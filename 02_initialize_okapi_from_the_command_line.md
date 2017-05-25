@@ -24,7 +24,7 @@ The Okapi Gateway is using an in-memory database (a built-in PostgreSQL database
 We are going to run the Okapi Gateway with debugging turned on so you can see the effect of the requests passing through the gateway.
 The last line of output tells us that the Okapi Gateway is running on port 9130.
 
-Open up a second terminal window (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh command`), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
+Open up a second terminal window (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
@@ -45,7 +45,7 @@ $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/tenants
 Note that in both cases what was returned from the gateway are empty JSON lists, meaning that the newly initialized Okapi Gateway has no configured modules or tenants.
 
 Paths starting with `/_/` are core Okapi Gateway services.
-`/_/proxy` is one core service; it is used to //TODO define
+`/_/proxy` is one core service; it is used to (//TODO define this).
 Another core service is `/_/discovery`; it is used to interact with nodes in the Okapi cluster.
 More details about these core services can be found in the [Okapi Guide and Reference](https://github.com/folio-org/okapi/blob/master/doc/guide.md#deployment-and-discovery).
 In the next section we will use these two core services to register a module and a tenant.
@@ -142,7 +142,7 @@ $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
 ```
 
 ### Deploying _okapi-test-module_
-Although we have registered the module with the Okapi Gateway, we have not yet instantiated the module so there is something available to respond to requests.
+Although we have registered the module with the Okapi Gateway, we have not yet instantiated the module so that there is something available to respond to requests.
 The module must also be deployed on one node (or more, in the case of clusters).
 First, let's query the discovery service for a list of nodes it knows about in the cluster:
 

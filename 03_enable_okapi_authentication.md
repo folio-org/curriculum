@@ -74,7 +74,7 @@ $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
   12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
 ```
 
-Open up a second terminal window to send JSON documents to the Okapi Gateway using _curl_ (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh command`).
+Open up a second terminal window to send JSON documents to the Okapi Gateway using _curl_ (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command).
 The examples in this tutorial are using the in-memory storage, so you will need to resend the _Okapi-test-module_ ModuleDescriptor and DeploymentDescriptor as well as redefine the `testlib` tenant and enable the _Okapi-test-module_.
 If you completed the previous lesson, these JSON documents are in the `$FOLIO_ROOT` directory.
 
@@ -129,7 +129,7 @@ The significant difference is a new dictionary called `filters`.
 The `filters` dictionary specifies paths and phases for which the Okapi Gateway will call this module.
 At the moment, there is only one phase (`auth`) and the `methods` and `pathPattern` specify that this module will be called for all Okapi Gateway requests.
 Another difference is that the `launchDescriptor` is omitted; as shown below, the `launchDescriptor` can also be defined in the DeploymentDescriptor.
-(This can be useful in cases where there are command line options specific to a particular deployment.)
+(This can be useful in cases where there are command-line options specific to a particular deployment.)
 
 ### Okapi Auth Module DeploymentDescriptor
 
