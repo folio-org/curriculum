@@ -149,7 +149,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 (Note: Your port number in the `instId` and the `url` may vary depending on whether there are other Okapi Modules deployed on the Okapi Gateway.)
 Finally, you'll need to enable the Okapi Users app module for the test tenant:
 
-```
+```shell
 $ cat > okapi-enable-users.json <<END
 {
   "id" : "users-module"

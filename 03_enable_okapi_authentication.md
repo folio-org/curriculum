@@ -94,7 +94,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 
 This example of a ModuleDescriptor is similar to the one used for the _Okapi-test-module_.
 
-```
+```shell
 $ cat > okapi-proxy-test-module-auth.json <<END
   {
     "id": "test-auth",
@@ -136,7 +136,7 @@ Another difference is that the `launchDescriptor` is omitted; as shown below, th
 This example of a DeploymentDescriptor is similar to the one used for the _Okapi-test-module_.
 Note that the `launchDescriptor` dictionary is defined here.
 
-```
+```shell
 $ cat > okapi-deploy-test-module-auth.json <<END
   {
     "srvcId": "test-auth",
@@ -152,7 +152,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 
 ### Enable Okapi Auth Module on tenant
 
-```
+```shell
 $ cat > okapi-enable-auth.json <<END
   {
     "id": "test-auth"
