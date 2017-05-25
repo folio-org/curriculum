@@ -44,6 +44,10 @@ Be sure you are connected to the VirtualBox guest (from the host computer: `vagr
 Other instructions and commands that are specific to the VirtualBox guest mode of using the tutorial are noted using this style of information box.
 </div>
 
+<div class="vagrant-on-windows-note" markdown="1">
+If launching Vagrant from a Windows Command Prompt, be sure to use _Run As Administrator..._ when opening the Command Prompt itself (`cmd.exe`).  If you are seeing the error _"EPROTO: protocol error, symlink"_, the likely cause is that Vagrant was not launched with administrator privileges.  See issue [STRIPES-344](https://issues.folio.org/browse/STRIPES-344) for details.
+</div>
+
 ## Set `FOLIO_ROOT` Variable for Lessons
 Each lesson assumes the existence of a `$FOLIO_ROOT` shell variable.
 This variable holds the path to a directory where the components of the Okapi Server and the Stripes Development UI Server are located.

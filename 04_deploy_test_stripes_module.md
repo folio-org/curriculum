@@ -81,6 +81,9 @@ $ yarn install
   success Saved lockfile.
   ✨  Done in 40.40s.
 ```
+<div class="vagrant-on-windows-note" markdown="1">
+If you are seeing the error _"EPROTO: protocol error, symlink"_ when running Vagrant on Windows, the likely cause is that Vagrant was not launched with administrator privileges.  Be sure to use _Run As Administrator..._ when opening the Command Prompt itself (`cmd.exe`).  See issue [STRIPES-344](https://issues.folio.org/browse/STRIPES-344) for details.
+</div>
 
 After the Stripes UI Server is built, run it using the `yarn start` command:
 
