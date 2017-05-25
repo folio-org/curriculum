@@ -111,10 +111,12 @@ The Git repository for the Users app Okapi Module has a [Module Descriptor](http
 ```shell
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
    -d @ModuleDescriptor.json http://localhost:9130/_/proxy/modules
+  HTTP/1.1 100 Continue
+
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/proxy/modules/users-module
-  Content-Length: 852
+  Content-Length: 4117
 
   {
     "id" : "users-module",
