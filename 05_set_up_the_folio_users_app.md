@@ -12,7 +12,7 @@ Each will need changes to add the Users app.
 
 ### Modify _package.json_
 The `package.json` file needs a new entry in the dependency section.
-The new file should look like:
+The revised file should look like:
 ```JavaScript
 {
   "scripts": {
@@ -21,7 +21,7 @@ The new file should look like:
     "start": "stripes dev stripes.config.js"
   },
   "dependencies": {
-    "@folio/stripes-core": "^0.0.11",
+    "@folio/stripes-core": "^1.6.0",
     "@folio/users": "^0.0.1-test",
     "@folio/trivial": "^0.0.2-test"
   }
@@ -33,7 +33,7 @@ The `stripes.config.js` file needs not only a line for adding the Users UI compo
 ```javascript
 module.exports = {
   okapi: { 'url':'http://localhost:9130', 'tenant':'testlib' },
-  config: { reduxLog: true, disableAuth: true },
+  config: { hasAllPerms: true, reduxLog: true },
   modules: {
     '@folio/trivial': {},
     '@folio/users': {}
@@ -45,6 +45,11 @@ The `okapi` line in `stripes.config.js` gives the Stripes UI Server the URL of t
 
 ### Rebuild Stripes Server
 With the Users UI components added to the UI Server configuration, use the `yarn install` command to download and configure the necessary modules.
+
+<div class="vagrant-note" markdown="1">
+When using the VirtualBox method, you will need to open a terminal window on your host computer, change the working directory to the location of the `Vagrantfile`, and use the `vagrant ssh` command to connect from the host computer to the guest.
+</div>
+
 ```shell
 $ cd $FOLIO_ROOT/stripes-tutorial-platform
 $ yarn install
@@ -171,74 +176,147 @@ The FOLIO Users app is now available at [http://localhost:3000/users](http://loc
 You'll see the message `No results found for "". Please check your spelling and filters` because no users have been added.
 
 ## Add users to FOLIO
-For testing purposes, the FOLIO development team has JSON documents representing facticious users that can be used to populate the dev FOLIO environment.
-The JSON documents are located in [https://github.com/folio-org/folio-ansible/tree/master/roles/mod-users-data/files](https://github.com/folio-org/folio-ansible/tree/master/roles/mod-users-data/files).
+For testing purposes, the FOLIO development team has JSON documents representing factitious users that can be used to populate the dev FOLIO environment.
 
 ```shell
 $ cd $FOLIO_ROOT
-$ curl -s -O https://raw.githubusercontent.com/folio-org/folio-ansible/master/roles/mod-users-data/files/User000.json
-$ curl -s -O https://raw.githubusercontent.com/folio-org/folio-ansible/master/roles/mod-users-data/files/User001.json
+$ cat > User000.json <<END
+{
+  "username" : "elyssa",
+  "id" : "90f2c933-ea1e-4b17-a719-b2af6bacc735",
+  "active" : true,
+  "type" : "patron",
+  "personal" : {
+    "email" : "cordie@carroll-corwin.hi.us",
+    "phone" : "791-043-4090 x776",
+    "lastName" : "Ferry",
+    "firstName" : "Liliane",
+    "mobilePhone" : "394.050.1417 x06534",
+    "dateOfBirth" : "2005-03-15T00:00:00.000+0000",
+    "preferredContact" : {
+      "desc" : "Email",
+      "value" : "EMAIL"
+    }
+  },
+  "lastUpdateDate" : "1995-04-01T00:00:00.000+0000",
+  "enrollmentDate" : "1981-07-06T00:00:00.000+0000",
+  "openDate" : "2012-10-10T00:00:00.000+0000",
+  "barcode" : "451770690377323",
+  "expirationDate" : "1981-12-12T00:00:00.000+0000"
+}
+END
+$ cat > User001.json <<END
+{
+  "username" : "kody",
+  "id" : "6149c8d7-ae2f-4a64-8b39-4e39f743d675",
+  "active" : true,
+  "type" : "patron",
+  "personal" : {
+    "email" : "mireille@kihn-dickinson.ki",
+    "phone" : "594.070.0052",
+    "lastName" : "Collins",
+    "firstName" : "Courtney",
+    "mobilePhone" : "635-727-8471",
+    "middleName" : "Nat",
+    "dateOfBirth" : "2009-01-03T00:00:00.000+0000",
+    "preferredContact" : {
+      "desc" : "Email",
+      "value" : "EMAIL"
+    }
+  },
+  "lastUpdateDate" : "1987-01-18T00:00:00.000+0000",
+  "enrollmentDate" : "2011-08-18T00:00:00.000+0000",
+  "openDate" : "2012-12-21T00:00:00.000+0000",
+  "barcode" : "639713934684667",
+  "expirationDate" : "1999-04-19T00:00:00.000+0000"
+}
+END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
+    -H 'X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig' \
     -H 'X-Okapi-Tenant: testlib' -d @User000.json http://localhost:9130/users
   HTTP/1.1 201 Created
+  X-Okapi-Trace: POST Okapi test auth module http://localhost:9132/users : 202
   Content-Type: application/json
-  Location: 82738e56-517b-4878-aece-f275d0445f59
-  Host: localhost:9130
-  User-Agent: curl/7.51.0
-  Accept: */*
-  X-Okapi-Tenant: testlib
-  X-Okapi-Url: http://localhost:9130
-  X-Okapi-Permissions-Required: users.create
-  X-Okapi-Module-Permissions: {}
-  X-Okapi-Trace: POST - users http://localhost:9131/users : 201 349307us
+  Location: 48b6982e-3504-4bfe-8fa6-f16d686d9d5a
+  user-agent: curl/7.38.0
+  host: localhost:9130
+  accept: */*
+  x-okapi-tenant: testlib
+  x-okapi-request-id: 408458/users
+  x-okapi-url: http://localhost:9130
+  x-okapi-permissions-required: users.item.post
+  x-okapi-module-permissions: {}
+  x-okapi-token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig
+  X-Okapi-Trace: POST Okapi test auth module http://localhost:9132/users : 202
+  X-Okapi-Trace: POST users http://localhost:9133/users : 201 51570us
   Transfer-Encoding: chunked
 
   {
-    "username" : "dante",
-    "id" : "EF84048E-559F-48EF-BE07-CF6AB8E91670",
+    "username" : "elyssa",
+    "id" : "90f2c933-ea1e-4b17-a719-b2af6bacc735",
+    "barcode" : "451770690377323",
     "active" : true,
     "type" : "patron",
-    "patron_group" : "on_campus",
-    "meta" : {
-      "creation_date" : "2009-10-09",
-      "last_login_date" : "1986-04-16"
-    },
     "personal" : {
-      "last_name" : "Shanahan",
-      "first_name" : "Shakira",
-      "email" : "oral@harvey-dach-and-medhurst.ht"
-    }
+      "lastName" : "Ferry",
+      "firstName" : "Liliane",
+      "email" : "cordie@carroll-corwin.hi.us",
+      "phone" : "791-043-4090 x776",
+      "mobilePhone" : "394.050.1417 x06534",
+      "dateOfBirth" : "2005-03-15T00:00:00.000+0000",
+      "preferredContact" : {
+        "value" : "EMAIL",
+        "desc" : "Email"
+      }
+    },
+    "openDate" : "2012-10-10T00:00:00.000+0000",
+    "enrollmentDate" : "1981-07-06T00:00:00.000+0000",
+    "expirationDate" : "1981-12-12T00:00:00.000+0000",
+    "lastUpdateDate" : "1995-04-01T00:00:00.000+0000"
   }
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
+    -H 'X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig' \
     -H 'X-Okapi-Tenant: testlib' -d @User001.json http://localhost:9130/users
   HTTP/1.1 201 Created
+  X-Okapi-Trace: POST Okapi test auth module http://localhost:9132/users : 202
   Content-Type: application/json
-  Location: 6cb3ef6f-cab5-4516-8bfb-da53bf6e5fdc
-  Host: localhost:9130
-  User-Agent: curl/7.51.0
-  Accept: */*
-  X-Okapi-Tenant: testlib
-  X-Okapi-Url: http://localhost:9130
-  X-Okapi-Permissions-Required: users.create
-  X-Okapi-Module-Permissions: {}
-  X-Okapi-Trace: POST - users http://localhost:9131/users : 201 40984us
+  Location: e30d2586-f90d-4dee-8e05-afd72e0d65aa
+  user-agent: curl/7.38.0
+  host: localhost:9130
+  accept: */*
+  x-okapi-tenant: testlib
+  x-okapi-request-id: 587880/users
+  x-okapi-url: http://localhost:9130
+  x-okapi-permissions-required: users.item.post
+  x-okapi-module-permissions: {}
+  x-okapi-token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig
+  X-Okapi-Trace: POST Okapi test auth module http://localhost:9132/users : 202
+  X-Okapi-Trace: POST users http://localhost:9133/users : 201 22312us
   Transfer-Encoding: chunked
 
   {
-    "username" : "darrell",
-    "id" : "73F41A0B-B5BC-4413-875B-3334E0436DD6",
+    "username" : "kody",
+    "id" : "6149c8d7-ae2f-4a64-8b39-4e39f743d675",
+    "barcode" : "639713934684667",
     "active" : true,
     "type" : "patron",
-    "patron_group" : "on_campus",
-    "meta" : {
-      "creation_date" : "1998-03-15",
-      "last_login_date" : "2000-02-27"
-    },
     "personal" : {
-      "last_name" : "Oberbrunner",
-      "first_name" : "Eladio",
-      "email" : "dayna@zulauf-jast.la"
-    }
+      "lastName" : "Collins",
+      "firstName" : "Courtney",
+      "middleName" : "Nat",
+      "email" : "mireille@kihn-dickinson.ki",
+      "phone" : "594.070.0052",
+      "mobilePhone" : "635-727-8471",
+      "dateOfBirth" : "2009-01-03T00:00:00.000+0000",
+      "preferredContact" : {
+        "value" : "EMAIL",
+        "desc" : "Email"
+      }
+    },
+    "openDate" : "2012-12-21T00:00:00.000+0000",
+    "enrollmentDate" : "2011-08-18T00:00:00.000+0000",
+    "expirationDate" : "1999-04-19T00:00:00.000+0000",
+    "lastUpdateDate" : "1987-01-18T00:00:00.000+0000"
   }
 ```
 
