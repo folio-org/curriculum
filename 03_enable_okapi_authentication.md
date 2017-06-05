@@ -105,8 +105,8 @@ $ cat > okapi-proxy-test-module-auth.json <<END
         "version": "3.4",
         "handlers": [
           {
-            "methods": [ "POST" ],
-            "pathPattern": "/login"
+            "methods" : [ "POST" ],
+            "pathPattern" : "/authn/login"
           }
         ]
       }
@@ -116,7 +116,7 @@ $ cat > okapi-proxy-test-module-auth.json <<END
         "methods": [ "*" ],
         "pathPattern": "/*",
         "phase": "auth",
-        "type": "headers"
+        "type": "request-only"
       }
     ]
   }

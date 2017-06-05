@@ -48,6 +48,8 @@ With the Users UI components added to the UI Server configuration, use the `yarn
 
 <div class="vagrant-note" markdown="1">
 When using the VirtualBox method, you will need to open a terminal window on your host computer, change the working directory to the location of the `Vagrantfile`, and use the `vagrant ssh` command to connect from the host computer to the guest.
+
+When starting Stripes from the command line, be sure to set the _STRIPES_HOST_ environment variable: `STRIPES_HOST=0.0.0.0 yarn start`
 </div>
 
 ```shell
