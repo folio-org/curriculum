@@ -22,7 +22,7 @@ The revised file should look like:
   },
   "dependencies": {
     "@folio/stripes-core": "^1.6.0",
-    "@folio/users": "^0.0.1-test",
+    "@folio/users": "^2.2.0",
     "@folio/trivial": "^0.0.2-test"
   }
 }
