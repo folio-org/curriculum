@@ -29,7 +29,7 @@ This can be demonstrated by using this curl command in a second terminal window 
 ```shell
 $ curl -i -w '\n' -X POST -H 'X-Okapi-Tenant: blah' \
     -d '{"username": "seb", "password": "seb-password"}' \
-    http://localhost:9020/login
+    http://localhost:9020/authn/login
   HTTP/1.1 200 OK
   Content-Type: application/json
   X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig
