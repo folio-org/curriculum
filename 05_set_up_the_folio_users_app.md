@@ -123,7 +123,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/proxy/modules/users-module
-  Content-Length: 4117
+  Content-Length: 4118
 
   {
     "id" : "users-module",
