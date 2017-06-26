@@ -33,7 +33,7 @@ The `stripes.config.js` file needs not only a line for adding the Users UI compo
 ```javascript
 module.exports = {
   okapi: { 'url':'http://localhost:9130', 'tenant':'testlib' },
-  config: { hasAllPerms: true, reduxLog: true },
+  config: { disableAuth: true, hasAllPerms: true, reduxLog: true },
   modules: {
     '@folio/trivial': {},
     '@folio/users': {}
