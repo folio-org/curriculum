@@ -33,7 +33,7 @@ The `stripes.config.js` file needs not only a line for adding the Users UI compo
 ```javascript
 module.exports = {
   okapi: { 'url':'http://localhost:9130', 'tenant':'testlib' },
-  config: { hasAllPerms: true, reduxLog: true },
+  config: { disableAuth: true, hasAllPerms: true, reduxLog: true },
   modules: {
     '@folio/trivial': {},
     '@folio/users': {}
@@ -72,7 +72,12 @@ $ yarn start
 ```
 
 The Stripes portion of the Users app is now running at  [http://localhost:3000/users](http://localhost:3000/users).
-At this point you likely receive one of three possible errors:
+
+NOTE: The following notes are now out-of-date, needing the deployment of all user-related backend modules.
+Until updated, see the folio/stable prepackaged Vagrant box at
+[folio-ansible](https://github.com/folio-org/folio-ansible/blob/master/README.md#quick-start).
+
+At this point you likely receive one of three possible errors, similar to:
 * `ERROR: in module @folio/users operation FETCH on resource users failed, saying: Network request failed`: the Okapi Gateway is not running; see the Java command line at the [start of lesson three](http://dev.folio.org/curriculum/03_initialize_okapi_from_the_command_line#start-the-okapi-gateway)
 * `ERROR: in module @folio/users operation FETCH on resource users failed, saying: No such Tenant testlib`: your Okapi Gateway is newly restarted and does not have the _testlib_ tenant; return to [lesson three under the Creating a Tenant heading](03_initialize_okapi_from_the_command_line#creating-a-tenant) to post `okapi-tenant.json` to `/_/proxy/tenants`.
 * `ERROR: in module @folio/users operation FETCH on resource users failed, saying: ` (empty error message): you are in the right place.  The Users Okapi Module is not yet [registered](03_initialize_okapi_from_the_command_line#registering-okapi-test-module), [deployed](03_initialize_okapi_from_the_command_line#deploying-okapi-test-module) and/or [enabled](03_initialize_okapi_from_the_command_line#enable-test-module-for-the-testlib-tenant) for the 'testlib' tenant.  The lack of an error message is a [known issue](https://issues.folio.org/browse/STRIPES-224).
@@ -123,7 +128,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/proxy/modules/users-module
-  Content-Length: 4117
+  Content-Length: 4118
 
   {
     "id" : "users-module",

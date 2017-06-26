@@ -114,7 +114,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/proxy/modules/test-basic-1.0.0
-  Content-Length: 350
+  Content-Length: 527
 
   {
     "id" : "test-basic-1.0.0",
