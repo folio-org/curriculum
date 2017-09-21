@@ -29,7 +29,7 @@ When in doubt, using the VirtualBox guest machine is recommended.
 
 ### VirtualBox guest
 * [VirtualBox 5.1 or higher](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant 1.9.1 or higher](https://www.vagrantup.com/downloads.html)
+* [Vagrant 1.9.1 or higher](https://www.vagrantup.com/downloads.html), for Windows 7 use [1.9.6 .msi](https://releases.hashicorp.com/vagrant/1.9.6/) ([learn why](https://github.com/hashicorp/vagrant/issues/8783))
 
 To download the VirtualBox guest:
 1. Make a clean directory and change into it: `mkdir folio-curriculum && cd folio-curriculum`
