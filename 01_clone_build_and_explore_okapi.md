@@ -24,6 +24,8 @@ Subsequent installs will not take as long.
 
 ```shell
 $ cd okapi
+$ git checkout -B v1.11.0 v1.11.0
+Switched to a new branch 'v1.11.0'
 $ mvn install
   [...]
   [INFO] ------------------------------------------------------------------------
