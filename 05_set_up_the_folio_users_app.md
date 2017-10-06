@@ -90,7 +90,7 @@ The next tutorial section may be review.
 ### Fetch and build the Users app Okapi Module
 ```shell
 $ cd $FOLIO_ROOT
-$ git clone --recursive https://github.com/folio-org/mod-users.git
+$ git clone --recursive https://github.com/folio-org/mod-users.git -b v10.1.1
   Cloning into 'mod-users'...
   remote: Counting objects: 645, done.
   remote: Compressing objects: 100% (41/41), done.
