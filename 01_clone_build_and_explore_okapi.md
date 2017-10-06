@@ -4,19 +4,10 @@
 
 ```shell
 $ cd $FOLIO_ROOT
-$ git clone --recursive https://github.com/folio-org/okapi.git
-  Receiving objects: 100% (13316/13316), 2.34 MiB | 655.00 KiB/s, done.
-  Resolving deltas: 100% (6813/6813), done.
-  Checking connectivity... done.
-  Submodule 'okapi-core/src/main/raml/raml-util' (https://github.com/folio-org/raml.git) registered for path 'okapi-core/src/main/raml/raml-util'
-  Cloning into 'okapi-core/src/main/raml/raml-util'...
-  remote: Counting objects: 636, done.
-  remote: Compressing objects: 100% (80/80), done.
-  remote: Total 636 (delta 61), reused 99 (delta 39), pack-reused 511
-  Receiving objects: 100% (636/636), 113.96 KiB | 126.00 KiB/s, done.
-  Resolving deltas: 100% (357/357), done.
-  Checking connectivity... done.
-  Submodule path 'okapi-core/src/main/raml/raml-util': checked out '4d0e256193190f62a4154fc5eebb3ce8cddd21e2'
+$ git clone --recursive https://github.com/folio-org/okapi.git -b v1.11.0
+  Cloning into 'okapi'...
+  [...]
+  Submodule path 'okapi-core/src/main/raml/raml-util': checked out 'a22e8c5b7ab919c692407a0d674f53c317088aac'
 ```
 
 The first time Okapi is installed will take several minutes as various JAR files are downloaded from the Maven repository.
@@ -24,8 +15,6 @@ Subsequent installs will not take as long.
 
 ```shell
 $ cd okapi
-$ git checkout -B v1.11.0 v1.11.0
-Switched to a new branch 'v1.11.0'
 $ mvn install
   [...]
   [INFO] ------------------------------------------------------------------------
