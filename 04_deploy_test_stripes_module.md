@@ -32,7 +32,8 @@ The _dependencies_ dictionary lists packages (and specific versions) that make u
 At this stage of the Curriculum we are setting up a stand-alone Stripes UI Server instance that does not communicate with an Okapi back-end.
 The `package.json` below builds Stripes with a 'trivial' client bundle.
 
-```json
+```shell
+$ cat > package.json <<END
 {
   "scripts": {
     "build": "stripes build stripes.config.js",
@@ -44,6 +45,7 @@ The `package.json` below builds Stripes with a 'trivial' client bundle.
     "@folio/trivial": "^0.0.2-test"
   }
 }
+END
 ```
 
 ### Contents of `stripes.config.js`
@@ -56,7 +58,8 @@ The _modules_ dictionary contains another dictionary of Stripes package and thei
 The key in this dictionary is the name of the package to load from the FOLIO UI registry.
 The value in this dictionary are parameters that can override the default settings of the Stripes package.
 
-```javascript
+```shell
+$ cat > stripes.config.js <<END
 module.exports = {
   okapi: {},
   config: { disableAuth: true, hasAllPerms: true },
@@ -64,6 +67,7 @@ module.exports = {
     '@folio/trivial': {}
   }
 };
+END
 ```
 ### Build Stripes with the 'trivial' client bundle
 
