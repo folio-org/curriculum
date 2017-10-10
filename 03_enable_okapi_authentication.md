@@ -49,6 +49,7 @@ $ curl -i -w '\n' -X GET -H 'X-Okapi-Tenant: blah' \
   HTTP/1.1 202 Accepted
   X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig
   X-Okapi-Module-Tokens: {}
+  X-Okapi-User-Id: seb
   Content-Type: text/plain
   Transfer-Encoding: chunked
 ```
@@ -97,7 +98,7 @@ This example of a ModuleDescriptor is similar to the one used for the _Okapi-tes
 ```shell
 $ cat > okapi-proxy-test-module-auth.json <<END
   {
-    "id": "test-auth",
+    "id": "test-auth-3.4.1",
     "name": "Okapi test auth module",
     "provides": [
       {
@@ -111,12 +112,13 @@ $ cat > okapi-proxy-test-module-auth.json <<END
         ]
       }
     ],
+    "requires": [],
     "filters": [
       {
         "methods": [ "*" ],
         "pathPattern": "/*",
         "phase": "auth",
-        "type": "request-only"
+        "type": "headers"
       }
     ]
   }
@@ -139,7 +141,7 @@ Note that the `launchDescriptor` dictionary is defined here.
 ```shell
 $ cat > okapi-deploy-test-module-auth.json <<END
   {
-    "srvcId": "test-auth",
+    "srvcId": "test-auth-3.4.1",
     "nodeId": "localhost",
     "descriptor": {
       "exec": "java -Dport=%p -jar okapi-test-auth-module/target/okapi-test-auth-module-fat.jar"
@@ -155,7 +157,7 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
 ```shell
 $ cat > okapi-enable-auth.json <<END
   {
-    "id": "test-auth"
+    "id": "test-auth-3.4.1"
   }
 END
 $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
@@ -168,9 +170,10 @@ If we now send the same test request from the end of the previous lesson to the 
 
 ```shell
 $ curl -i -w '\n' -X GET -H 'X-Okapi-Tenant: testlib' http://localhost:9130/testb
+
   HTTP/1.1 401 Unauthorized
   Content-Type: text/plain
-  X-Okapi-Trace: GET Okapi test auth module http://localhost:9132/testb : 401 95343us
+  X-Okapi-Trace: GET test-auth-3.4.1 http://localhost:9132/testb : 401 62623us
   Transfer-Encoding: chunked
 
   Auth.check called without X-Okapi-Token
@@ -184,11 +187,11 @@ If we send a request header with a valid _X-Okapi-Token_, the request is success
 $ curl -i -w '\n' -X GET -H 'X-Okapi-Tenant: testlib' \
     -H 'X-Okapi-Token: dummyJwt.eyJzdWIiOiJzZWIiLCJ0ZW5hbnQiOm51bGx9.sig' \
     http://localhost:9130/testb
+
   HTTP/1.1 200 OK
-  X-Okapi-Trace: GET Okapi test auth module http://localhost:9132/testb : 202 188522us
+  X-Okapi-Trace: GET test-auth-3.4.1 http://localhost:9132/testb : 202 152538us
   Content-Type: text/plain
-  X-Okapi-Trace: GET Okapi test auth module http://localhost:9132/testb : 202 188522us
-  X-Okapi-Trace: GET Okapi test module http://localhost:9131/testb : 200 10933us
+  X-Okapi-Trace: GET test-basic-1.0.0 http://localhost:9131/testb : 200 7440us
   Transfer-Encoding: chunked
 
   It works
