@@ -11,11 +11,8 @@ When using the VirtualBox method, you will need to open a terminal window on you
 ```shell
 $ cd $FOLIO_ROOT/okapi
 $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
-  12:08:11 INFO  MainVerticle         git: git@github.com:folio-org/okapi 225c9c1e03c29459da430f93110abb30378e1394
-  12:08:11 INFO  MainVerticle         clusterManager not in use
-  12:08:11 INFO  MainVerticle         Proxy using inmemory storage
-  12:08:12 WARN  Storage              Storage.resetDatabases: NORMAL
-  12:08:12 INFO  TenantWebService     All tenants deployed
+  ...
+  ...
   12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
 ```
 
