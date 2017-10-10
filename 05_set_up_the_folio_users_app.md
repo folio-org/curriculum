@@ -1,8 +1,9 @@
 # Set up the Okapi Users app
 
-In lesson one, we deployed Stripes and demonstrated communication between the browser and the Stripes components.
+In lesson four, we deployed Stripes and demonstrated communication between the browser and the Stripes components.
 In lessons two and three, we deployed the Okapi Gateway as well as a test Okapi Module and examined the communication between them.
-In lesson four we are connecting Stripes to the Okapi Gateway and adding the Users app.
+In this lesson five, we are connecting Stripes to the Okapi Gateway and adding the Users app.
+
 There are two components to the Users app: the Stripes UI component and the Okapi Module component.
 We will start first with the Stripes UI component.
 
