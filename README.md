@@ -11,7 +11,7 @@ This is an outline of a tutorial that can be given to a group in a workshop or f
 There are two choices: either running the Stripes Development UI Server and the Okapi Gateway directly on a developer’s machine (“on-machine”) or running Stripes and Okapi in a VirtualBox guest.
 An Ansible playbook with appropriate roles is used to create the VirtualBox guest, and can also be used to automatically build a developer’s environment (making the playbook target localhost).
 
-* MacOS 10.? or higher (On-machine or VirtualBox)
+* macOS 10.? or higher (On-machine or VirtualBox)
 * Windows 10 or higher (VirtualBox required)
 * Linux (On-machine or VirtualBox)
 
@@ -24,8 +24,7 @@ When in doubt, using the VirtualBox guest machine is recommended.
 * Maven 3.3.9 or higher
 * Node.js 6.x or higher
 * [Yarn](https://yarnpkg.com/en/) package manager v0.20.3 or higher
-
-(Note that on MacOS these prerequisites can be installed using [Homebrew](https://brew.sh/).)
+* [curl](https://curl.haxx.se)
 
 ### VirtualBox guest
 * [VirtualBox 5.1 or higher](https://www.virtualbox.org/wiki/Downloads)
