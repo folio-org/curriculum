@@ -42,6 +42,8 @@ In subsequent lessons, the command lines are executed within the VirtualBox gues
 Be sure you are connected to the VirtualBox guest (from the host computer: `vagrant ssh`) before running the commands.
 
 Other instructions and commands that are specific to the VirtualBox guest mode of using the tutorial are noted using this style of information box.
+
+There are some FOLIO-related Vagrant tips, known issues, and troubleshooting [notes](https://github.com/folio-org/folio-ansible/blob/master/doc/index.md#troubleshootingknown-issues) available.
 </div>
 
 <div class="vagrant-on-windows-note" markdown="1">
