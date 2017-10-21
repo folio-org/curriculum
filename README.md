@@ -79,7 +79,6 @@ $ export FOLIO_ROOT=`pwd`
 1. [Enable Okapi Authentication](03_enable_okapi_authentication.md)
 1. [Deploy test Stripes package](04_deploy_test_stripes_module.md)
 1. Real-world application: [set up the FOLIO Users app](05_set_up_the_folio_users_app.md)
-1. Build a skeletal RAML-module-builder module _(coming soon)_
 
 ## Run Jekyll Locally
 To view the documentation locally:
