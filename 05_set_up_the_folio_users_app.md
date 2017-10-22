@@ -7,6 +7,10 @@ In this lesson five, we are connecting Stripes to the Okapi Gateway and adding t
 There are two components to the Users app: the Stripes UI component and the Okapi Module component.
 We will start first with the Stripes UI component.
 
+NOTE: The Stripes package.json is out-of-date. Also we need the deployment of all user-related backend modules.
+
+So skip ahead to the section about [Adding the mod-users module](#add-mod-users).
+
 ## Add the Users app UI component to the Stripes UI Server
 Remember in $FOLIO_ROOT/stripes-tutorial-platform we have two configuration files: `package.json` and `stripes.config.js`.
 Each will need changes to add the Users app.
@@ -74,10 +78,6 @@ $ yarn start
 
 The Stripes portion of the Users app is now running at  [http://localhost:3000/users](http://localhost:3000/users).
 
-NOTE: The following notes are now out-of-date, needing the deployment of all user-related backend modules.
-Until updated, see the folio/stable prepackaged Vagrant box at
-[folio-ansible](https://github.com/folio-org/folio-ansible/blob/master/README.md#quick-start).
-
 At this point you likely receive a possible error, similar to:
 * `ERROR: in module @folio/users operation FETCH on resource users failed, saying: Network request failed`: the Okapi Gateway is not running; see the Java command line at the [start of lesson three](http://dev.folio.org/curriculum/03_initialize_okapi_from_the_command_line#start-the-okapi-gateway)
 * `ERROR: in module @folio/users operation FETCH on resource users failed, saying: No such Tenant testlib`: your Okapi Gateway is newly restarted and does not have the _testlib_ tenant; return to [lesson three under the Creating a Tenant heading](03_initialize_okapi_from_the_command_line#creating-a-tenant) to post `okapi-tenant.json` to `/_/proxy/tenants`.
@@ -86,7 +86,7 @@ At this point you likely receive a possible error, similar to:
 If you did not receive an error message, then your Okapi Gateway is properly configured.
 The next tutorial section may be review.
 
-## Add the Users app Okapi Module to the Okapi Gateway
+## <a id="add-mod-users"/>Add the Users app Okapi Module to the Okapi Gateway
 
 ### Fetch and build the Users app Okapi Module
 
@@ -330,3 +330,4 @@ $ curl -i -X GET -H "Content-Type:application/json" \
 ```
 
 A more useful set of users is available when using the Vagrant boxes.
+
