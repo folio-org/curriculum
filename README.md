@@ -36,6 +36,9 @@ To download the VirtualBox guest:
 1. Launch the VirtualBox guest: `vagrant up`
 1. Connect to the VirtualBox guest: `vagrant ssh`
 
+Note: Do this download prior to attending a workshop.
+If also doing [Lesson 6](06_vm_stable.md) then get it ready beforehand too.
+
 <div class="vagrant-note" markdown="1">
 In subsequent lessons, the command lines are executed within the VirtualBox guest.
 Be sure you are connected to the VirtualBox guest (from the host computer: `vagrant ssh`) before running the commands.
@@ -79,6 +82,7 @@ $ export FOLIO_ROOT=`pwd`
 1. [Enable Okapi Authentication](03_enable_okapi_authentication.md)
 1. [Deploy test Stripes package](04_deploy_test_stripes_module.md)
 1. Real-world application: [set up the FOLIO Users app](05_set_up_the_folio_users_app.md)
+1. [Interact with the FOLIO Stable VM](06_vm_stable.md)
 
 ## Run Jekyll Locally
 To view the documentation locally:
