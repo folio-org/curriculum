@@ -5,13 +5,13 @@ The previous lessons have provided a quick overview of deploying the parts of th
 This Lesson uses the folio-stable VM to provide a full up-to-date system.
 It has all the necessary modules deployed, and users and items already loaded.
 
-If you still have the VirtualBox guest running from the previous lessons, then change to the folio-curriculum directory and do `vagrant halt; cd ..`
+If you still have the VirtualBox guest running from the previous lessons, then change to the folio-curriculum directory and do: `vagrant halt; cd ..`
 
 # Start the folio-stable VM
 
 Do this step prior to attending a workshop.
 
-Prepare the box. It will site beside your other halted folio-curriculum box.
+Prepare the box. It will sit beside your other halted folio-curriculum box.
 
 1. Make a clean directory and change into it: `mkdir folio-stable && cd folio-stable`
 1. Set up the Vagrantfile: `vagrant init --minimal folio/stable`
@@ -97,7 +97,7 @@ H_TOKEN=-H`grep -i x-okapi-token "$PATH_TMP-login-response.json" | sed 's/ //' `
 echo
 
 echo Test 1: Find some users
-$CURL $H_TENANT $H_TOKEN $OKAPIURL/users?query=personal.lastName=a*+sortBy+username
+$CURL $H_TENANT $H_TOKEN $OKAPIURL/users?query=personal.lastName=ab*+sortBy+username
 echo
 
 echo Finished.
