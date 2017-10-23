@@ -4,7 +4,7 @@
 
 ```shell
 $ cd $FOLIO_ROOT
-$ git clone --recursive https://github.com/folio-org/okapi.git -b v1.11.0
+$ git clone --recursive https://github.com/folio-org/okapi.git
   Cloning into 'okapi'...
   [...]
   Submodule path 'okapi-core/src/main/raml/raml-util': checked out 'a22e8c5b7ab919c692407a0d674f53c317088aac'
@@ -74,7 +74,7 @@ $ curl -i -w '\n' http://localhost:8080/testb
   It works
 ```
 
-Next make a HTTP POST request (using `-x POST`) and send the string `Testing Okapi` (using the -d command line option):
+Next make a HTTP POST request (using `-X POST`) and send the string `Testing Okapi` (using the -d command line option):
 
 ```shell
 $ curl -i -w '\n' -X POST -d "Testing Okapi" http://localhost:8080/testb

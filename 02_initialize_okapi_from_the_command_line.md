@@ -6,16 +6,14 @@ In a terminal window, start the Okapi Gateway service.
 
 <div class="vagrant-note" markdown="1">
 When using the VirtualBox method, you will need to open a terminal window on your host computer, change the working directory to the location of the `Vagrantfile`, and use the `vagrant ssh` command to connect from the host computer to the guest.
+
 </div>
 
 ```shell
 $ cd $FOLIO_ROOT/okapi
 $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
-  12:08:11 INFO  MainVerticle         git: git@github.com:folio-org/okapi 225c9c1e03c29459da430f93110abb30378e1394
-  12:08:11 INFO  MainVerticle         clusterManager not in use
-  12:08:11 INFO  MainVerticle         Proxy using inmemory storage
-  12:08:12 WARN  Storage              Storage.resetDatabases: NORMAL
-  12:08:12 INFO  TenantWebService     All tenants deployed
+  ...
+  ...
   12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
 ```
 
@@ -24,25 +22,36 @@ The Okapi Gateway is using an in-memory database (a built-in PostgreSQL database
 We are going to run the Okapi Gateway with debugging turned on so you can see the effect of the requests passing through the gateway.
 The last line of output tells us that the Okapi Gateway is running on port 9130.
 
-Open up a second terminal window (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
+Open up a second terminal window (noting that if you are using the VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules
+
   HTTP/1.1 200 OK
   Content-Type: application/json
-  Content-Length: 3
+  X-Okapi-Trace: GET okapi-2.0.1-SNAPSHOT /_/proxy/modules : 200 8733us
+  Content-Length: 74
 
-  [ ]
+  [ {
+    "id" : "okapi-2.0.1-SNAPSHOT",
+    "name" : "okapi-2.0.1-SNAPSHOT"
+  } ]
 
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/tenants
+
   HTTP/1.1 200 OK
   Content-Type: application/json
-  Content-Length: 3
+  X-Okapi-Trace: GET okapi-2.0.1-SNAPSHOT /_/proxy/tenants : 200 887us
+  Content-Length: 117
 
-  [ ]
+  [ {
+    "id" : "okapi.supertenant",
+    "name" : "okapi.supertenant",
+    "description" : "Okapi built-in super tenant"
+  } ]
 ```
 
-Note that in both cases what was returned from the gateway are empty JSON lists, meaning that the newly initialized Okapi Gateway has no configured modules or tenants.
+As we have just started the gateway, there is only the internal module and the internal supertenant, meaning that the newly initialized Okapi Gateway has no actual configured modules or tenants.
 
 Paths starting with `/_/` are core Okapi Gateway services.
 `/_/proxy` is one core service; it is used to (//TODO define this).
@@ -87,6 +96,7 @@ $ cat > okapi-proxy-test-basic.json <<END
         ]
       }
     ],
+    "requires": [],
     "launchDescriptor": {
       "exec": "java -Dport=%p -jar okapi-test-module/target/okapi-test-module-fat.jar"
     }
@@ -114,7 +124,8 @@ $ curl -i -w '\n' -X POST -H 'Content-type: application/json' \
   HTTP/1.1 201 Created
   Content-Type: application/json
   Location: /_/proxy/modules/test-basic-1.0.0
-  Content-Length: 527
+  X-Okapi-Trace: POST ...
+  Content-Length: 547
 
   {
     "id" : "test-basic-1.0.0",
