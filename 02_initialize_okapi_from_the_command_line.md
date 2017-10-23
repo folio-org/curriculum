@@ -22,7 +22,7 @@ The Okapi Gateway is using an in-memory database (a built-in PostgreSQL database
 We are going to run the Okapi Gateway with debugging turned on so you can see the effect of the requests passing through the gateway.
 The last line of output tells us that the Okapi Gateway is running on port 9130.
 
-Open up a second terminal window (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
+Open up a second terminal window (noting that if you are using the VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command), then use these two curl commands to list the Okapi Modules and tenants known to the gateway:
 
 ```shell
 $ curl -i -w '\n' -X GET http://localhost:9130/_/proxy/modules

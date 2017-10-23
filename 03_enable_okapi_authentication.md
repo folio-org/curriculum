@@ -75,7 +75,7 @@ $ java -Dloglevel=DEBUG -jar okapi-core/target/okapi-core-fat.jar dev
   12:08:12 INFO  MainVerticle         API Gateway started PID 64161@Walkabout.lan. Listening on port 9130
 ```
 
-Open up a second terminal window to send JSON documents to the Okapi Gateway using _curl_ (noting that if you are VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command).
+Open up a second terminal window to send JSON documents to the Okapi Gateway using _curl_ (noting that if you are using the VagrantBox method you will need to open a new terminal on your host and use the `vagrant ssh` command).
 The examples in this tutorial are using the in-memory storage, so you will need to resend the _Okapi-test-module_ ModuleDescriptor and DeploymentDescriptor as well as redefine the `testlib` tenant and enable the _Okapi-test-module_.
 If you completed the previous lesson, these JSON documents are in the `$FOLIO_ROOT` directory.
 
