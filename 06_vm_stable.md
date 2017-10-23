@@ -22,9 +22,9 @@ The [folio-ansible](https://github.com/folio-org/folio-ansible) notes explain th
 
 # Follow the log files
 
-Open a couple of shell terminal windows to follow the Okapi and Stripes log files.
+Open a couple more shell terminal windows to follow the Okapi and Stripes log files.
 
-Following these log files is [explained](https://github.com/folio-org/folio-ansible/blob/master/doc/index.md#viewing-the-okapi-log), as well as how to follow each backend module logs.
+Following these log files is [explained](https://github.com/folio-org/folio-ansible/blob/master/doc/index.md#viewing-the-okapi-log), as well as how to follow the log of each backend module.
 
 ```shell
 $ cd folio-stable
@@ -40,6 +40,8 @@ $ docker logs stripes_stripes_1 --follow
 
 # Interact via web browser
 
+Remember that the Stripes service is forwarded through port 3000, so we can interact with it using our local web browser.
+
 `open http://localhost:3000`
 
 Admin login: diku_admin/admin
@@ -50,13 +52,13 @@ Browse and view the Users and Items sections.
 
 # Interact via command-line
 
-Open a couple of shell terminal windows to send requests.
+Open a couple more shell terminal windows to send requests.
 
 Remember that the Okapi service is forwarded through port 9130, so we can interact with it using 'curl' from the host machine.
 
 Save the following script as `run-basic.sh` in your work directory. It provides a basic interaction with Okapi. Expand it to do some other queries. See the [API docs](http://dev.folio.org/doc/api).
 
-Then do `./run-basic.sh`
+So start talking, do: `./run-basic.sh`
 
 ```shell
 #!/bin/bash
@@ -70,7 +72,7 @@ PATH_TMP="/tmp/folio-demo"
 H_TENANT="-HX-Okapi-Tenant:diku"
 H_JSON="-HContent-type:application/json"
 
-echo "Ensure Okapi ..."
+echo Ensuring that Okapi can be reached ...
 $CURL $OKAPIURL/_/proxy/tenants
 STATUS=$?
 if [ $STATUS != 0 ]; then
@@ -79,7 +81,7 @@ if [ $STATUS != 0 ]; then
 fi
 echo
 
-echo Doing login and getting token ...
+echo Doing login and getting our token ...
 cat >$PATH_TMP-login-credentials.json << END
 {
   "userId": "diku_admin",
@@ -91,13 +93,16 @@ $CURL $H_TENANT $H_JSON --progress-bar \
   -X POST \
   -d@$PATH_TMP-login-credentials.json \
   $OKAPIURL/authn/login > $PATH_TMP-login-response.json
+
+echo Extracting the token header from the response ...
 H_TOKEN=-H`grep -i x-okapi-token "$PATH_TMP-login-response.json" | sed 's/ //' `
 
 # echo Received a token $H_TOKEN
 echo
 
 echo Test 1: Find some users
-$CURL $H_TENANT $H_TOKEN $OKAPIURL/users?query=personal.lastName=ab*+sortBy+username
+$CURL $H_TENANT $H_TOKEN \
+  $OKAPIURL/users?query=personal.lastName=ab*+sortBy+username
 echo
 
 echo Finished.
