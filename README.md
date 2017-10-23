@@ -76,6 +76,8 @@ $ cd folio-tutorial-working-files
 $ export FOLIO_ROOT=`pwd`
 ```
 
+Each time that you open a new shell terminal window, do those latter two steps to set `$FOLIO_ROOT`.
+
 ## Lessons/Steps
 1. [Clone, build and explore Okapi](01_clone_build_and_explore_okapi.md)
 1. [Initialize Okapi Gateway from the command line](02_initialize_okapi_from_the_command_line.md)
