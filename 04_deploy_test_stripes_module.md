@@ -1,6 +1,6 @@
 # Deploy test Stripes module
 
-In this lesson we set aside the Okapi server and focus on the web-based user interface, Stripes.  The Okapi Gateway is not required for this lesson.
+In this lesson we set aside the Okapi server (leave it running) and focus on the web-based user interface, Stripes.  The Okapi Gateway is not required for this lesson.
 
 ## Inform the Yarn package manager of the FOLIO UI registry location
 (Note: the output of commands is artificially indented from the command line to call out the command lines.)
@@ -20,7 +20,7 @@ $ mkdir $FOLIO_ROOT/stripes-tutorial-platform
 $ cd $FOLIO_ROOT/stripes-tutorial-platform
 ```
 
-In that directory, put two files: `package.json` and `stripes.config.js`.
+In that directory, put two configuration files: The `package.json` and `stripes.config.js` files, with the following basic content:
 
 ### Contents of `package.json`
 
@@ -116,7 +116,7 @@ The Stripes UI Server homepage at http://localhost:3000 looks like the figure be
 
 ![Stripes homepage](pics/01_Stripes_homepage.png)
 
-There is one app in the Stripes UI Server -- the "Trivial" app with the green icon.  Click on it to get a form:
+There is one app in this basic configuration of the Stripes UI Server -- the "Trivial" app with the green icon.  Click on it to get a form:
 
 ![Trivial homepage](pics/01_Trivial_homepage.png)
 
@@ -131,3 +131,7 @@ The source for the Trivial module is in the stripes-core git repository (https:/
 More details about the state of the object within the module can be seen by viewing the debugging output in the browser's JavaScript console.
 
 ![Trivial reply with browser JavaScript console](pics/01_Trivial_reply_with_js_console.png)
+
+## Finish
+
+Now stop this basic Stripes server. Do `Control-C` to exit it.
