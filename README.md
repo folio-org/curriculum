@@ -1,4 +1,7 @@
 # FOLIO Developer Curriculum Outline
+
+**NOTE:** This repository is deprecated. Instead see [https://dev.folio.org/tutorials/curriculum/](https://dev.folio.org/tutorials/curriculum/)
+
 This is an outline of a tutorial that can be given to a group in a workshop or followed by an individual developer in a self-paced fashion.
 
 ## Goals
